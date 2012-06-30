@@ -1,0 +1,99 @@
+require 'simplecov'
+SimpleCov.start
+
+require 'test_helper'
+require 'test/unit'
+require 'logbridge'
+require 'active_support/all'
+
+class TestLogbridge < Test::Unit::TestCase
+
+  def before
+    FileUtils.rmtree Dir.glob("#{@config.logbridge['remote_log_dir']}/*")
+    FileUtils.mv Dir.glob("#{@config.logbridge['local_log_dir']}/archive/*"), "#{@config.logbridge['local_log_dir']}"
+  end
+
+  def teardown
+    FileUtils.rmtree Dir.glob("#{@config.logbridge['remote_log_dir']}/*")
+    FileUtils.mv Dir.glob("#{@config.logbridge['local_log_dir']}/archive/*"), "#{@config.logbridge['local_log_dir']}"
+    FileUtils.rmtree Dir.glob("#{@config.logbridge['local_log_dir']}/archive/")
+  end
+
+  def setup
+    @config = Configuration.load(:config_dir  => File.expand_path('../../../config', __FILE__),
+                                :environment => "test")
+    refute_nil(@config)
+    @month_ago = 1.hour.ago.strftime("%m")
+    @year_ago  = 1.hour.ago.strftime("%Y")
+    @hostname  = Socket.gethostname
+    @logbridge = Logbridge.new(@config)
+  end
+
+  def test_should_avaliable_files
+    expected = ['lead.log.20120101_01','lead.log.20120101_02','lead.log.20120101_03']
+    files = @logbridge.avaliable_files
+    refute_nil files
+
+    assert_equal 3, files.size
+    assert_equal "#{@config.logbridge['local_log_dir']}#{expected[0]}", files[0]
+    assert_equal "#{@config.logbridge['local_log_dir']}#{expected[1]}", files[1]
+    assert_equal "#{@config.logbridge['local_log_dir']}#{expected[2]}", files[2]
+  end
+
+  def test_should_create_remote_dir_if_not_exists
+    remote_dir = @logbridge.create_remote_dir
+    assert Dir.exist?(remote_dir)
+  end
+
+    def test_should_copy_files_to_remote
+
+    expected = ['lead.log.20120101_01','lead.log.20120101_02','lead.log.20120101_03']
+
+    files = @logbridge.avaliable_files
+    @logbridge.copy_to_remote files
+
+    remote_dir = "#{@config.logbridge['remote_log_dir']}#{@year_ago}/#{@month_ago}/#{@hostname}"
+    assert File.exists?"#{remote_dir}/#{expected[0]}"
+    assert File.exists?"#{remote_dir}/#{expected[1]}"
+    assert File.exists?"#{remote_dir}/#{expected[2]}"
+  end
+
+  def test_should_create_dir_if_not_exists
+    archive_dir = @config.logbridge['local_log_dir']
+    @logbridge.create_dir("#{archive_dir}/archive")
+    assert File.directory?"#{archive_dir}/archive"
+  end
+
+  def test_should_move_files_to_archive
+    expected = ['lead.log.20120101_01','lead.log.20120101_02','lead.log.20120101_03']
+
+    files = @logbridge.avaliable_files
+    archive_dir = "#{@config.logbridge['local_log_dir']}/archive"
+
+    @logbridge.archive files
+
+    assert File.exists?"#{archive_dir}/#{expected[0]}"
+    assert File.exists?"#{archive_dir}/#{expected[1]}"
+    assert File.exists?"#{archive_dir}/#{expected[2]}"
+  end
+
+  def test_should_copy_from_local_and_mv_to_archive
+    expected = ['lead.log.20120101_01','lead.log.20120101_02','lead.log.20120101_03']
+
+    @logbridge.run
+
+    # should copy files from local to remote
+    remote_dir = "#{@config.logbridge['remote_log_dir']}#{@year_ago}/#{@month_ago}/#{@hostname}"
+    assert File.exists?"#{remote_dir}/#{expected[0]}"
+    assert File.exists?"#{remote_dir}/#{expected[1]}"
+    assert File.exists?"#{remote_dir}/#{expected[2]}"
+
+    # should archive copied logs
+    archive_dir = "#{@config.logbridge['local_log_dir']}/archive"
+    assert File.exists?"#{archive_dir}/#{expected[0]}"
+    assert File.exists?"#{archive_dir}/#{expected[1]}"
+    assert File.exists?"#{archive_dir}/#{expected[2]}"
+
+  end
+
+end

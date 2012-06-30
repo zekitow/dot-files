@@ -1,0 +1,38 @@
+require 'rubygems'
+require 'rake/testtask'
+require 'logger'
+require File.expand_path('../lib/logbridge', __FILE__)
+require File.expand_path('../lib/configuration', __FILE__)
+require 'simplecov'
+
+desc "Unit Tests"
+task :test do
+  Rake::TestTask.new do |t|
+
+    SimpleCov.start do
+      add_filter 'test_'
+      add_filter 'config/'
+    end
+
+    t.libs << "test"
+    t.test_files = FileList['test/**/test*.rb']
+    t.verbose = false
+  end
+end
+
+task :rcov do
+
+end
+
+namespace :cron do
+  desc "Copy files to NFS volume"
+  task :copy do
+    puts "Cron task start."
+
+    @config = Configuration.load(:config_dir  => File.expand_path('../config', __FILE__),
+                                 :environment => "production")
+
+    Logbridge.new(@config).run
+    puts "Cron task done."
+  end
+end

@@ -1,0 +1,79 @@
+class ImportProductsWorker
+  @queue = :import_products_queue
+  @worker_name = "ImportProducts"
+
+  def self.perform(importer_id, start_time, end_time)
+    end_time   = end_time   || Time.now
+    start_time = start_time || Date.parse('2000/01/01')
+    imported_products = 0
+    inserted_products = 0
+    updated_products  = 0
+
+    importer = Importer.find(importer_id)
+    importer.status_messages = []
+    has_errors = false
+    legacy_products(importer.partner_id, start_time, end_time).each do |legacy|
+      begin
+        current_product = Product.find(:first, :conditions => {:legacy_id => legacy.produto_id, :partner_id => importer.partner_id})
+        product = current_product || Product.new
+        product.partner_id = importer.partner_id
+        save_product(product, legacy)
+        inserted_products = inserted_products + 1 if current_product.nil?
+        updated_products = updated_products + 1 unless current_product.nil?
+        imported_products = imported_products + 1
+      rescue Exception => error
+        Rails.logger.error("Could not import products: #{error}")
+        has_errors = true
+        importer.status_messages << {:message =>  error.message, :product_id => legacy.nil? ? 0 : legacy.produto_id}
+      end
+    end
+
+    importer.status = has_errors ? Importer::STATUS_ERROR : Importer::STATUS_SUCCESS
+    importer.imported_items = imported_products
+    importer.inserted_items = inserted_products
+    importer.updated_items = updated_products
+    importer.end_time = Time.now
+    importer.save!
+  end
+
+  def self.worker_name
+    @worker_name
+  end
+
+ private
+  def self.legacy_products(partner_id, start_time, end_time)
+    partner = Partner.find(partner_id)
+    Legacy::Produto.find(:all,
+        :conditions => ["(criado_em between ? and ? or atualizado_em between ? and ? or inativado_em between ? and ?) and parceiro_id = ?", start_time, end_time, start_time, end_time, start_time, end_time, partner.nil? ? 0 : partner.legacy_id])
+  end
+
+  def self.save_product(product, legacy)
+    product.legacy_id = legacy.produto_id
+    product.partner_title = legacy.nome
+    product.partner_description = legacy.descricao
+    product.product_url = legacy.url_produto
+    product.list_price = legacy.preco.nil? ? 0 : legacy.preco.to_f
+    product.retail_price = legacy.preco.nil? ? 0 : legacy.preco_por.to_f
+    product.status = 'new'
+    product.partner_categories =  legacy.categoria_parceiro.split(':') unless legacy.categoria_parceiro.nil?
+    product.partner_sizes = legacy.tamanhos_parceiro.split('|') unless legacy.tamanhos_parceiro.nil?
+    product.partner_brand = legacy.marca_parceiro.nil? ? "" : legacy.marca_parceiro
+    product.partner_colors = legacy.cores_parceiro.split(/ e |,|\|/).collect {|a| a.strip.gsub('.','')} unless legacy.cores_parceiro.nil?
+    product.categories = ["#{legacy.categoria.nome.downcase}::#{legacy.categoria.nome.downcase}"] unless legacy.categoria.nil?
+    product.sizes = legacy.tamanhos.split('|') unless legacy.tamanhos.nil?
+    product.brand = legacy.marca.nil? ? "" : legacy.marca.marca
+    product.deactivated_at = legacy.inativado_em
+    product.partner_id = Partner.find(:first, :conditions => {:legacy_id => legacy.parceiro.id}).id
+    product.attrs = {
+      :partner_order => legacy.ordem_xml
+    }
+
+    legacy.imagems.each do |i|
+       product.add_image Image.new :url => i.url_imagem , :width => 0, :height => 0, :active => true
+    end
+
+    product.save!
+  end
+
+end
+

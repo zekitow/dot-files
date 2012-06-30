@@ -1,0 +1,11 @@
+
+module CapProducts
+  class Result
+      attr_accessor :status, :content
+      def initialize(status, content = nil)
+        @status  = status
+        @content = content if content
+      end
+  end
+end
+

@@ -1,0 +1,63 @@
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+
+# Example aliases
+alias p='cd /work/cap/'
+alias spec=spec --color --format specdoc
+alias jetty="/work/ambiente/jetty7/bin/./jetty.sh $@"
+alias mvntest="mvn clean install"
+alias commons="cd /work/cap/commons/"
+alias site="cd /work/cap/site/"
+alias admin="cd /work/cap/admin/"
+alias cap-metrics="cd /work/cap/cap-metrics/"
+alias cap-admin="cd /work/cap/cap-admin/"
+alias cap-products="cd /work/cap/cap-products"
+alias redis-restart='sudo /etc/init.d/redis-server restart;cd /work/cap/cap-products/;rake resque:work QUEUE="*"'
+
+# system aliases
+alias q="exit"
+alias zshconfig="vim ~/.zshrc"
+alias lsg="ls -la | grep $@"
+alias psgrep="ps -ef | grep $@"
+alias killnow="kill -9 $@"
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+#COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git rvm)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+export PATH=/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+export EDITOR=vim 
+export ZSH_THEME="biracustom" 
+source $ZSH/oh-my-zsh.sh 
+export TERM='xterm-256color'
+[[ -s "/home/jribeiro/.rvm/scripts/rvm" ]] && source "/home/jribeiro/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*¬
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function¬
+
+fpath=(~/.zsh/Completion $fpath)
+
+# this tests for the presence of rvm
+# # if its loaded, it'll add the prompt
+function rvm_info_for_prompt {
+  ruby_version=$(~/.rvm/bin/rvm-prompt)
+  if [ -n "$ruby_version" ]; then
+    echo "[$ruby_version]"
+  fi
+}

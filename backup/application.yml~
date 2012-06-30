@@ -1,0 +1,29 @@
+defaults: &defaults
+  api:
+    default_result_limit: 10
+
+  sitemap:
+    domain: <%= ENV['CAP_BASE_URL'] || "www.clickaporter.com.br" %>
+    path: <%= ENV['CAP_SITEMAP_PATH'] || "tmp/" %>
+    product_path: /detalhes
+    items_per_page: <%= ENV['CAP_SITEMAP_PATH'] || 1000 %>
+
+  resque:
+    redis_server: <%= ENV['CAP_REDIS_SERVER'] || "localhost:6379" %>
+    password: <%= ENV['CAP_RESQUE_PASSWORD'] || "cap_password" %>
+
+  importer:
+    url:  http://127.0.0.1:8080/seusapatoadmin/importar/
+    callback: http://localhost:3000
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  importer:
+    url: http://admin.clickaporter.com.br/importar/
+    callback: http://api.products.cap.abril.com.br

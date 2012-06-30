@@ -1,0 +1,61 @@
+Host homolog1
+Hostname 172.16.156.20
+User seusapato
+Port 22
+
+Host homolog2
+Hostname 172.16.156.25
+User seusapato
+Port 22
+
+Host dev
+Hostname 172.16.156.26
+User seusapato
+Port 22
+
+Host qa
+Hostname 172.16.156.27
+User seusapato
+Port 22
+
+Host cap-ws01
+HostName 172.16.156.21
+Port 22
+User logview
+
+Host cap-ws02
+HostName 172.16.156.22
+Port 22
+User logview
+
+Host cap-db01
+HostName 172.16.156.23
+Port 22
+User logview
+
+Host cap-db02
+HostName 172.16.156.24
+Port 22
+User logview
+
+Host v-seusapato-ws01
+HostName 172.16.156.21
+Port 22
+User infra
+
+Host v-seusapato-ws02
+HostName 172.16.156.22
+Port 22
+User infra
+
+Host v-seusapato-db01
+HostName 172.16.156.23
+Port 22
+User infra
+
+Host v-seusapato-db02
+HostName 172.16.156.24
+Port 22
+User infra
+
+ServerAliveInterval 1200

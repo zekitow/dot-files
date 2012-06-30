@@ -1,124 +1,102 @@
 " Vim color scheme
 "
-" Name:        railscast.vim
-" Maintainer:  Josh O'Rourke <jorourke23@gmail.com> 
-" License:     public domain
+" Name:         railscasts.vim
+" Maintainer:   Nick Moffitt <nick@zork.net>
+" Last Change:  01 Mar 2008
+" License:      WTFPL <http://sam.zoy.org/wtfpl/>
+" Version:      2.1
 "
-" A GUI Only port of the RailsCasts TextMate theme [1] to Vim.
-" Some parts of this theme were borrowed from the well-documented Lucius theme [2].
-" 
-" [1] http://railscasts.com/about 
-" [2] http://www.vim.org/scripts/script.php?script_id=2536
+" This theme is based on Josh O'Rourke's Vim clone of the railscast
+" textmate theme.  The key thing I have done here is supply 256-color
+" terminal equivalents for as many of the colors as possible, and fixed
+" up some of the funny behaviors for editing e-mails and such.
+"
+" To use for gvim:
+" 1: install this file as ~/.vim/colors/railscasts.vim
+" 2: put "colorscheme railscasts" in your .gvimrc
+"
+" If you are using Ubuntu, you can get the benefit of this in your
+" terminals using ordinary vim by taking the following steps:
+"
+" 1: sudo apt-get install ncurses-term
+" 2: put the following in your .vimrc
+"     if $COLORTERM == 'gnome-terminal'
+"         set term=gnome-256color
+"         colorscheme railscasts
+"     else
+"         colorscheme default
+"     endif
+" 3: if you wish to use this with screen, add the following to your .screenrc:
+"     attrcolor b ".I"
+"     termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+"     defbce "on"
+"     term screen-256color-bce
 
 set background=dark
 hi clear
 if exists("syntax_on")
   syntax reset
 endif
+
 let g:colors_name = "railscasts"
 
-" Colors
-" Brown        #BC9458
-" Dark Blue    #6D9CBE
-" Dark Green   #519F50
-" Dark Orange  #CC7833
-" Light Blue   #D0D0FF
-" Light Green  #A5C261
-" Tan          #FFC66D
+hi link htmlTag                     xmlTag
+hi link htmlTagName                 xmlTagName
+hi link htmlEndTag                  xmlEndTag
 
-hi Normal                    guifg=#E6E1DC guibg=#2B2B2B
-hi Cursor                    guibg=#FFFFFF
-hi CursorLine                guibg=#333435
-hi LineNr                    guifg=#888888 guibg=#DEDEDE
-hi Search                    guibg=#5A647E
-hi Visual                    guibg=#5A647E
+hi        Cursor                    ctermfg=0    ctermbg=15
+hi        CursorLine                ctermbg=233
+hi        Normal                    ctermfg=15
 
-" Folds
-" -----
-" line used for closed folds
-hi Folded                    guifg=#F6F3E8 guibg=#444444 gui=NONE
+hi        Comment                   ctermfg=180
+hi        Constant                  ctermfg=73
+hi        Define                    ctermfg=173
+hi        Error                     ctermfg=221  ctermbg=88
+hi        Function                  ctermfg=15
+hi        Identifier                ctermfg=73
+hi        Include                   ctermfg=173
+hi        PreCondit                 ctermfg=173
+hi        Keyword                   ctermfg=173
+hi        LineNr                    ctermfg=15
+hi        Number                    ctermfg=2
+hi        PreProc                   ctermfg=103
+hi        Search                    ctermfg=NONE ctermbg=235 cterm=bold
+hi        Statement                 ctermfg=173
+hi        String                    ctermfg=2
+hi        Title                     ctermfg=15
+hi        Type                      ctermfg=1
+hi        Visual                    ctermbg=50
+hi        Directory                 ctermfg=110
 
-" Misc
-" ----
-" directory names and other special names in listings
-hi Directory                 guifg=#A5C261 gui=NONE
+hi        DiffAdd                   ctermfg=7 ctermbg=71 cterm=bold
+hi        DiffDelete                ctermfg=7 ctermbg=52 cterm=bold
+hi        Special                   ctermfg=1 cterm=bold
 
-" Popup Menu
-" ----------
-" normal item in popup
-hi Pmenu                     guifg=#F6F3E8 guibg=#444444 gui=NONE
-" selected item in popup
-hi PmenuSel                  guifg=#000000 guibg=#A5C261 gui=NONE
-" scrollbar in popup
-hi PMenuSbar                 guibg=#5A647E gui=NONE
-" thumb of the scrollbar in the popup
-hi PMenuThumb                guibg=#AAAAAA gui=NONE
+hi        pythonBuiltin             ctermfg=73
+hi        rubyBlockParameter        ctermfg=15
+hi        rubyClass                 ctermfg=15
+hi        rubyConstant              ctermfg=1
+hi        rubyInstanceVariable      ctermfg=189
+hi        rubyInterpolation         ctermfg=2
+hi        rubyLocalVariableOrMethod ctermfg=189
+hi        rubyPredefinedConstant    ctermfg=1
+hi        rubyPseudoVariable        ctermfg=221
+hi        rubyStringDelimiter       ctermfg=143
+hi        rubyBoolean               ctermfg=110
+hi        rubySymbol                ctermfg=110
+hi        rubyStringDelimiter       ctermfg=2
+hi        rubyPseudoVariable        ctermfg=110
 
+hi        xmlTag                    ctermfg=179
+hi        xmlTagName                ctermfg=179
+hi        xmlEndTag                 ctermfg=179
 
-"rubyComment
-hi Comment                   guifg=#BC9458 gui=italic
-hi Todo                      guifg=#BC9458 guibg=NONE gui=italic
+hi        mailSubject               ctermfg=2
+hi        mailHeaderKey             ctermfg=221
+hi        mailEmail                 ctermfg=2
 
-"rubyPseudoVariable
-"nil, self, symbols, etc
-hi Constant                  guifg=#6D9CBE
+hi        SpellBad                  ctermfg=160 ctermbg=NONE cterm=bold
+hi        SpellRare                 ctermfg=168 ctermbg=NONE cterm=bold
+hi        SpellCap                  ctermfg=189 ctermbg=NONE cterm=bold
+hi        MatchParen                ctermfg=15  ctermbg=23
 
-"rubyClass, rubyModule, rubyDefine
-"def, end, include, etc
-hi Define                    guifg=#CC7833
-
-"rubyInterpolation
-hi Delimiter                 guifg=#519F50
-
-"rubyError, rubyInvalidVariable
-hi Error                     guifg=#FFFFFF guibg=#990000
-
-"rubyFunction
-hi Function                  guifg=#FFC66D gui=NONE
-
-"rubyIdentifier
-"@var, @@var, $var, etc
-hi Identifier                guifg=#D0D0FF gui=NONE
-
-"rubyInclude
-"include, autoload, extend, load, require
-hi Include                   guifg=#CC7833 gui=NONE
-
-"rubyKeyword, rubyKeywordAsMethod
-"alias, undef, super, yield, callcc, caller, lambda, proc
-hi Keyword                   guifg=#CC7833
-
-" same as define
-hi Macro                     guifg=#CC7833 gui=NONE
-
-"rubyInteger
-hi Number                    guifg=#A5C261
-
-" #if, #else, #endif
-hi PreCondit                 guifg=#CC7833 gui=NONE
-
-" generic preprocessor
-hi PreProc                   guifg=#CC7833 gui=NONE
-
-"rubyControl, rubyAccess, rubyEval
-"case, begin, do, for, if unless, while, until else, etc.
-hi Statement                 guifg=#CC7833 gui=NONE
-
-"rubyString
-hi String                    guifg=#A5C261
-
-hi Title                     guifg=#FFFFFF
-
-"rubyConstant
-hi Type                      guifg=#DA4939 gui=NONE
-
-hi DiffAdd                   guifg=#E6E1DC guibg=#144212
-hi DiffDelete                guifg=#E6E1DC guibg=#660000
-
-hi link htmlTag              xmlTag
-hi link htmlTagName          xmlTagName
-hi link htmlEndTag           xmlEndTag
-
-hi xmlTag                    guifg=#E8BF6A
-hi xmlTagName                guifg=#E8BF6A
-hi xmlEndTag                 guifg=#E8BF6A

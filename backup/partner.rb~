@@ -1,0 +1,87 @@
+require "rest-client"
+require "json"
+require 'ruby-debug'
+module CapProducts
+  class Partner
+
+    URI = '/partners'
+    
+    def self.create(host, partner_slug)
+      begin
+        self.result(RestClient.post("#{host}#{URI}", :partner_slug => partner_slug))
+      rescue => e
+        self.result(e.response)
+      end
+    end
+    
+    def self.show(host, partner_id)
+      raise ArgumentError unless partner_id
+      
+      begin
+        response = RestClient.get("#{host}#{URI}/#{partner_id}" )
+        if(response.code == 200)
+          result = self.result(response)
+          result.content = self.parse(JSON.parse(response.body))
+          result
+        else
+          self.result(response)
+        end
+      rescue => e
+         self.result(e.response)
+      end
+    end
+        
+    def self.find(host, params)
+      begin
+        response = RestClient.get("#{host}#{URI}", :params => params)
+        if(response.code == 200)
+          result = self.result(response)
+          partners = {:items => [], :links => {}}
+          items = JSON.parse(response.body)
+          items['items'].each do |partner|
+            partners[:items] << self.parse(partner)
+          end
+          items['links'].each do |link|
+            partners[:links][link['rel']] = link['href']
+          end
+          result.content = partners
+          return result
+        else
+          self.result(response)
+        end
+      rescue => e
+        self.result(e.response)
+      end
+    end
+  
+  private
+  
+    def self.result(response)
+      CapProducts::Result.new(response.code, response.body)
+    end
+    
+    def self.parse(json)
+      partner = Hash.new
+      partner[:id] = json['_id']
+      partner[:active_brand] = json['active_brand']
+      partner[:active_name] = json['active_name']
+      partner[:created_at] = self.parse_date(json['created_at'])
+      partner[:deactivated_at] = self.parse_date(json['deactivated_at'])
+      partner[:display_name] = json['display_name']
+      partner[:legacy_id] = json['legacy_id']
+      partner[:name] = json['name']
+      partner[:parser] = json['parser']
+      partner[:slug] = json['slug']
+      partner[:status] = json['status']
+      partner[:updated_at] = self.parse_date(json['updated_at'])
+      partner[:url] = json['url']
+      partner[:url_data_source] = json['url_data_source']
+      return partner
+    end    
+
+    def self.parse_date(time)
+      DateTime.strptime(time, "%Y-%m-%dT%H:%M:%S%z") unless time.nil?
+    end
+  
+  end
+end

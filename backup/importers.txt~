@@ -1,0 +1,47 @@
+# Importers
+
+### Importação de Parceiros:
+
+Para iniciar a importacao de um parceiro:
+
+
+  Method: POST
+  URI: /importers
+  Parametros:
+
+  +------------------+-------------+-------------+---------------------------------------------+
+  | NOME             | TIPO        | OBRIGATÓRIO | DESCRIÇÃO                                   |
+  |------------------|-------------|-------------|---------------------------------------------|
+  | partner_slug     | String      | Sim         | Slug do parceiro para importação            |
+  +------------------+-------------+-------------+---------------------------------------------+
+
+#### Via Terminal
+
+
+  curl -i -X POST http://localhost:3000/importers -d 'partner_slug=anita'
+
+
+### Response
+
+  +------------------+----------------------------------------------------------+--------------+
+  | HTTP STATUS      | LOCATION                                                 | CONTENT      |
+  |------------------|----------------------------------------------------------|--------------|
+  | 201 Created      | http://localhost:3000/importers/4f60e43065bde15a1d000002 | (empty)      |
+  +------------------+----------------------------------------------------------+--------------+
+
+
+Possíveis códigos de retorno para Importção
+
+  +----------------------+---------------------------+------------------------------------------------------------------+
+  | ACTION               | HTTP STATUS               | URI                                 | DESCRIÇÃO                  | 
+  |----------------------|---------------------------|-------------------------------------|----------------------------|
+  | Iniciar Importação   | 201 Created               | /importers/<slug>                   | Criou importação           |
+  | Iniciar Importação   | 409 Conflict              | /importers/<slug>                   | Já está sendo importado    |
+  | Iniciar Importação   | 422 Unprocessable Entity  | /importers/<slug>                   | Erro ao criar              |
+  | Iniciar Importação   | 400 Bad Request           | /importers/<slug>                   | Exception no Java          |
+  |                      |                           |                                     |                            |
+  |                      |                           |                                     |                            |
+  |                      |                           |                                     |                            |
+  |                      |                           |                                     |                            |
+  +----------------------+---------------------------+-------------------------------------+----------------------------+
+

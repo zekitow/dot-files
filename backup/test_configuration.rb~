@@ -1,0 +1,30 @@
+require 'test/unit'
+require 'configuration'
+require 'yaml'
+
+class TestConfiguration < Test::Unit::TestCase
+
+  def setup
+    @config = Configuration.load(:config_dir  => File.expand_path('../../../config', __FILE__),
+                                :environment => "test")
+    refute_nil(@config)
+
+  end
+
+  def test_should_load_all_yml_config_files
+    assert_not_nil(@config.logbridge)
+  end
+
+  def test_should_load_local_log_dir
+    assert File.directory?@config.logbridge['local_log_dir']
+  end
+
+  def test_should_load_remote_log_dir
+    assert File.directory?@config.logbridge['remote_log_dir']
+  end
+
+  def test_should_load_log_pattern
+    assert_equal("lead.log.*_??", @config.logbridge['log_pattern'])
+  end
+
+end

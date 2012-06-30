@@ -1,0 +1,70 @@
+10.170.82.121	jribeiro	# Added by NetworkManager
+127.0.0.1	localhost.localdomain	localhost
+::1	jribeiro	localhost6.localdomain6	localhost6
+127.0.1.1	jribeiro
+127.0.0.1 akamai.clickaporter
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
+127.0.0.1       clickaporter.abril.com.br
+0.0.0.0         clickaporter.abril.com.br
+
+# click-a-porter dev
+172.16.156.26   www.dev.clickaporter.com.br
+172.16.156.26   admin.dev.clickaporter.com.br
+172.16.156.26   assets.dev.clickaporter.com.br
+172.16.156.26   teste_xml.dev.clickaporter.com.br
+172.16.156.26   api.dev.clickaporter.abril.com.br
+
+# click-a-porter qa
+172.16.156.27   www.qa.clickaporter.com.br
+172.16.156.27   admin.qa.clickaporter.com.br
+172.16.156.27   assets.qa.clickaporter.com.br
+
+# click-a-porter homolog
+172.16.156.20   www.homolog.clickaporter.com.br
+172.16.156.20   admin.homolog.clickaporter.com.br
+172.16.156.20   assets.homolog.clickaporter.com.br
+
+# novo site cap - dev
+172.16.156.26   cap-admin.dev.clickaporter.abril.com.br
+172.16.156.26   cap-site.dev.clickaporter.abril.com.br
+172.16.156.26   assets3.dev.clickaporter.abril.com.br
+172.16.156.26   reports.dev.clickaporter.com.br
+
+# novo site cap - qa
+172.16.156.27   cap-admin.qa.clickaporter.abril.com.br
+172.16.156.27   cap-site.qa.clickaporter.abril.com.br
+172.16.156.27   assets3.qa.clickaporter.abril.com.br
+
+# novo site cap - homolog
+189.91.161.239  cap-admin.homolog.clickaporter.abril.com.br
+189.91.161.239  cap-site.homolog.clickaporter.abril.com.br
+189.91.161.239  assets3.homolog.clickaporter.abril.com.br
+189.91.161.239  api.homolog.clickaporter.abril.com.br
+
+
+172.16.156.26   cap-admin.dev.clickaporter.abril.com.br
+172.16.156.26   cap-site.dev.clickaporter.abril.com.br
+172.16.156.26   cap-metrics.dev.clickaporter.abril.com.br
+172.16.156.26   assets3.dev.clickaporter.abril.com.br
+
+172.16.156.27   cap-admin.qa.clickaporter.abril.com.br
+172.16.156.27   cap-site.qa.clickaporter.abril.com.br
+172.16.156.27   cap-metrics.qa.clickaporter.abril.com.br
+172.16.156.27   assets3.qa.clickaporter.abril.com.br
+172.16.156.27   api.qa.clickaporter.abril.com.br 
+
+189.91.161.239  cap-admin.homolog.clickaporter.abril.com.br
+189.91.161.239  cap-site.homolog.clickaporter.abril.com.br
+189.91.161.239  cap-metrics.homolog.clickaporter.abril.com.br
+189.91.161.239  assets3.homolog.clickaporter.abril.com.br
+
+####### Prod
+172.16.156.24   admin.clickaporter.com.br

@@ -1,0 +1,29 @@
+require 'rubygems'
+require 'rake/testtask'
+require 'logger'
+require File.expand_path('../lib/logbridge', __FILE__)
+
+desc "Unit Tests"
+task :test do
+  Rake::TestTask.new do |t|
+    t.libs << "test"
+    t.test_files = FileList['test/**/test*.rb']
+    t.verbose = true
+  end
+end
+
+task :migrate do
+  require File.expand_path('../config/boot', __FILE__)
+  log_dir = File.expand_path('../log', __FILE__)
+  Dir.mkdir(log_dir) unless Dir.exist?(log_dir)
+end
+
+
+namespace :cron do
+  desc "Copy files to NFS volume"
+  task :copy do
+    puts "Cron task start."
+    Logbridge::last_log_path
+    puts "Cron task done."
+  end
+end

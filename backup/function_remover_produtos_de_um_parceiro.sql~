@@ -1,0 +1,20 @@
+
+delimiter $$
+drop procedure if exists deletar_produtos $$
+create procedure deletar_produtos (param_id int(11))
+begin
+  delete from tb_produtos_tb_imagens 
+         where tb_produtos_id 
+      in (select id from tb_produtos where parceiro_id = param_id);
+
+  delete from tb_imagens 
+         where produto_id 
+      in (select id from tb_produtos where parceiro_id = param_id);
+
+  delete from tb_produtos_tb_quantidade_cor 
+         where produto_id 
+      in (select id from tb_produtos where parceiro_id = param_id);
+
+  delete from tb_produtos 
+         where parceiro_id = param_id;
+end $$

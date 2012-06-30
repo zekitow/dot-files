@@ -1,6 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/work/cap/admin/config'
 let g:netrw_dirhist_2='/work/cap/cap-products-gem'
 let g:netrw_dirhist_3='/work/cap/cap-admin'
-let g:netrw_dirhist_4='/work/cap/cap-products/spec'

@@ -1,0 +1,110 @@
+# encoding:utf-8
+require 'spec_helper'
+
+describe ImportProductsWorker do
+
+    before :each do
+      Partner.delete_all
+      Legacy::Parceiro.delete_all
+      Legacy::Produto.delete_all
+      Product.delete_all
+      @partner_name = 'parceiro de teste'
+      @import_steps = ["Downloading.."]
+      @parceiro = create(:parceiro, :nome => @partner_name)
+      @partner = create(:partner, :name => @partner_name, :legacy_id => @parceiro.id)
+      2.times {|i| create(:produto, :produto_id => i, :criado_em => 2.days.ago, :parceiro => @parceiro) }
+      @importer = create(:importer, :partner_id => @partner.id, :steps => @import_steps)
+    end
+
+    it "should import products the first time" do
+      ImportProductsWorker.perform(@importer.id, nil, Time.now)
+      Product.count.should == 2
+      Product.first.partner_id = @partner.id
+      importer_old = Importer.last_execution @partner.id
+      importer_old.should_not be_nil
+      importer_old.status.should == Importer::STATUS_SUCCESS
+      importer_old.imported_items.should == 2
+      importer_old.inserted_items.should == 2
+      importer_old.updated_items.should == 0
+    end
+
+    it "should import products without change products already imported" do
+      start = Time.now
+      ImportProductsWorker.perform(@importer.id, nil, start)
+      sleep 1.seconds
+      2.times { create(:produto, :criado_em => 2.days.ago, :parceiro => @parceiro, :criado_em => Date.tomorrow) }
+      date_updated = Product.first.updated_at
+      @importer2 = create(:importer, :partner_id => @partner.id, :steps => @import_steps)
+      ImportProductsWorker.perform(@importer2.id, start, 2.days.from_now)
+      Product.first.updated_at.should == date_updated
+      Product.count.should == 4
+      Product.first.partner_id = @partner.id
+      log = Importer.last_execution @partner.id
+      log.should_not be_nil
+      log.status.should == Importer::STATUS_SUCCESS
+      log.imported_items.should == 2
+      log.inserted_items.should == 2
+      log.updated_items.should == 0
+    end
+
+    it "should import updated products" do
+      start_time = Time.now
+      ImportProductsWorker.perform(@importer.id, nil, start_time)
+      sleep 1.seconds
+      legacy = Legacy::Produto.find(:first, :conditions => {:produto_id => 1})
+      legacy.atualizado_em = Time.now
+      legacy.nome = 'novo nome'
+      legacy.save!
+      @importer2 = create(:importer, :partner_id => @partner.id, :steps => @import_steps)
+      ImportProductsWorker.perform(@importer2.id, start_time, 1.day.from_now)
+      Product.count.should == 2
+      Product.find(:first, :conditions => {:legacy_id => 1}).should_not be_nil
+      log = Importer.last_execution @partner.id
+      log.should_not be_nil
+      log.status.should == Importer::STATUS_SUCCESS
+      log.imported_items.should == 1
+      log.inserted_items.should == 0
+      log.updated_items.should == 1
+    end
+
+    it "should import invalidated products" do
+      ImportProductsWorker.perform(@importer.id, nil,  Time.now)
+      sleep 1.seconds
+      deactivation_date = Time.now
+      legacy = Legacy::Produto.find(:first, :conditions => {:produto_id => 1})
+      legacy.inativado_em = deactivation_date
+      legacy.save!
+      @importer2 = create(:importer, :partner_id => @partner.id, :steps => @import_steps)
+      ImportProductsWorker.perform(@importer2.id, nil,  Time.now)
+      Product.count.should == 2
+      Product.first.partner_name = @partner_name
+      product = Product.find(:first, :conditions => {:legacy_id => 1})
+      product.should_not be_nil
+      product.deactivated_at.strftime("%Y-%m-%d %H:%M:%S").should == deactivation_date.utc.strftime("%Y-%m-%d %H:%M:%S")
+    end
+
+    it "should change log status when error is raised" do
+      ImportProductsWorker.stub(:legacy_products).and_return([nil])
+      ImportProductsWorker.perform(@importer.id, nil,  Time.now)
+      Product.count.should == 0
+      log = Importer.last_execution @partner.id
+      log.should_not be_nil
+      log.status.should == Importer::STATUS_ERROR
+      log.imported_items.should == 0
+      log.inserted_items.should == 0
+      log.updated_items.should == 0
+    end
+
+    it "should import products with images" do
+      Legacy::Produto.delete_all
+      2.times do |i|
+        create(:produto, :produto_id => i, :criado_em => 2.days.ago, :parceiro => @parceiro, :imagems => [create(:imagem), create(:imagem)])
+      end
+      ImportProductsWorker.perform(@importer.id, nil,  Time.now)
+      Product.count.should == 2
+      p = Product.find(:first)
+      p.images.length.should == 2
+    end
+
+end
+

@@ -1,0 +1,56 @@
+require "socket"
+require 'fileutils'
+require 'active_support/all'
+
+class Logbridge
+
+  def initialize(config)
+    @config = config
+  end
+
+  def run
+    files = self.avaliable_files
+    self.copy_to_remote files
+    self.archive files
+  end
+
+  def create_remote_dir
+    remote_dir = @config.logbridge['remote_log_dir']
+    year  = 1.hour.ago.strftime("%Y")
+    month = 1.hour.ago.strftime("%m")
+    path = "#{remote_dir}#{year}/#{month}/#{Socket.gethostname}"
+    self.create_dir path
+    path
+  end
+
+  def create_dir path
+    FileUtils.mkdir_p path
+    path
+  end
+
+  def avaliable_files
+    local_dir = @config.logbridge['local_log_dir']
+    log_pattern = @config.logbridge['log_pattern']
+    Dir.glob("#{local_dir}#{log_pattern}")
+  end
+
+  def copy_to_remote files
+    remote_dir = self.create_remote_dir
+    files.each do |file_path|
+      FileUtils.cp file_path, remote_dir, :verbose => true
+    end
+  end
+
+  def archive files
+    archive_dir = "#{@config.logbridge['local_log_dir']}archive"
+
+    unless File.exists?archive_dir
+        self.create_dir archive_dir
+    end
+
+    files.each do |file_path|
+      FileUtils.mv file_path, archive_dir, :verbose => true
+    end
+  end
+
+end

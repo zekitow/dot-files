@@ -1,0 +1,32 @@
+CapProducts::Application.routes.draw do
+
+  get "products", :controller => "products", :action => "index"
+
+  get "products/update", :controller => "products", :action => "list_by_date"
+
+  get "products/:id", :controller => "products", :action => "show"
+
+  put "products/:id", :controller => "products", :action => "update"
+
+  resources :tags, :except => [:destroy, :edit]
+
+  resources :categories, :except => [:destroy, :edit]
+
+  resources :brands, :except => [:destroy, :edit]
+
+  resources :colours, :except => [:destroy, :edit]
+
+  resources :partners, :except => [:destroy, :edit]
+
+  resources :custom_attributes, :except => [:destroy, :edit]
+
+  resources :dictionaries, :except => [:destroy, :edit]
+
+ # get "import/log", :controller => "log_importer", :action => "index"
+
+ # get "import_product", :controller => "products", :action => "import"
+
+  resources :importers, :except => [:destroy, :edit]
+  mount Resque::Server, :at => "/resque"
+end
+

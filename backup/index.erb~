@@ -1,0 +1,45 @@
+
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th>Identificador</th>
+      <th>Nome</th>
+      <th>Nome Exibido</th>
+      <th>Visualizar XML</th>
+      <th>Status</th>
+      <th>Editar</th>
+      <th>
+        <%= button_to "Importar todos", {:action => "import_all"},
+          {:method => :post, :remote => true, :disable_with => 'Importando...' } %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless @partners.nil? %>
+      <% @partners[:items].each do |partner| %>
+        <tr>
+          <td><%= partner[:slug] %></td>
+          <td><%= partner[:name] %></td>
+          <td><%= partner[:display_name] %></td>
+          <td><%= link_to partner[:url_data_source], partner[:url_data_source] %></td>
+          <td>
+          <% if partner[:status] == "ACTIVE" %>
+              <%=  image_tag("ok.jpg", :alt => "Ativo") %>
+          <% end %>
+          </td>
+          <td><%= link_to "Editar", partner_path(partner[:slug]) %></td>
+          <td><%= button_to "Importar", {:action => "import", :partner_slug => partner[:slug]},
+          {:method => :post, :remote => true,
+            :disable_with => 'Importando...'
+          } %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="5"><label>Nenhum registro foi encontrado!!</label></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+

@@ -1,0 +1,49 @@
+<div class="page-header">
+  <h1><%= @importer[:partner_slug] %></h1>
+  <p>Status da importação</p>
+</div>
+<dl class="dl-horizontal">
+
+  <dt>Parceiro</dt>
+  <dd><%= @importer[:partner_slug] %></dd>
+
+  <dt>Data Início</dt>
+  <dd><%= @importer[:start_time].strftime('%d/%m/%Y') %></dd>
+
+  <dt>Hora Início</dt>
+  <dd><%= @importer[:start_time].strftime('%T') %></dd>
+
+  <dt>Data Fim</dt>
+  <dd><%= @importer[:end_time] == nil ? '' : @importer[:end_time].strftime('%d/%m/%Y') %></dd>
+
+  <dt>Hora Fim</dt>
+  <dd><%= @importer[:end_time] == nil ? '' : @importer[:end_time].strftime('%T') %></dd>
+
+  <dt>Tempo</dt>
+  <dd><%= @importer[:import_time] <= 60 ? 1 : @importer[:import_time]/60 %> minuto(s)</dd>
+
+  <dt>Status</dt>
+  <dd><%= @importer[:status] %></dd>
+  
+  <dt>Processados</dt>
+  <dd><%= @importer[:imported_items] %></dd>
+   
+  <dt>Novos</dt>
+  <dd><%= @importer[:inserted_items] == nil ? 0 : @importer[:inserted_items] %></dd>
+ 
+  <dt>Atualizados</dt>
+  <dd><%= @importer[:updated_items] == nil ? 0 : @importer[:updated_items] %></dd>
+  
+  <dt>Inativos</dt>
+  <dd><%= @importer[:unavailable_items] == nil ? 0 : @importer[:unavailable_items] %></dd>
+
+  <% if @importer[:status] == "ERROR"  %> 
+    <dt>Error details</dt>
+    <dd><pre><%= @importer[:error_details] %></pre></dd>
+  
+    <dt>Steps</dt>
+    <dd><%= @importer[:steps] %></dd>
+  <% end %>
+</dl>
+
+<p><%= link_to("Voltar para lista", importers_path) %></p>

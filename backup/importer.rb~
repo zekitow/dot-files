@@ -1,0 +1,129 @@
+require "rest-client"
+require "json"
+require "date"
+module CapProducts
+  class Importer
+
+    URI = '/importers'
+
+    def self.create(host, partner_slug)
+      begin
+        self.result(RestClient.post("#{host}#{URI}", :partner_slug => partner_slug))
+      rescue => e
+        self.error(e)
+      end
+    end
+
+    def self.show(host, importer_id)
+      raise ArgumentError unless importer_id
+      begin
+        response = RestClient.get("#{host}#{URI}/#{importer_id}" )
+        if(response.code == 200)
+          result = self.result(response)
+          result.content = self.parse(JSON.parse(response.body))
+          result
+        else
+          self.result(response)
+        end
+      rescue => e
+        self.error(e)
+      end
+    end
+
+    def self.find(host, params)
+      begin
+        response = RestClient.get("#{host}#{URI}", :params => params)
+        if(response.code == 200)
+          result = self.result(response)
+          importers = {:items => [], :links => {}}
+          items = JSON.parse(response.body)
+          items['items'].each do |importer|
+            importers[:items] << self.parse(importer)
+          end
+          items['links'].each do |link|
+            importers[:links][link['rel']] = link['href']
+          end
+          result.content = importers
+          return result
+        else
+          self.result(response)
+        end
+      rescue => e
+        self.error(e)
+      end
+    end
+
+    def self.next_page(host, importers)
+      raise ArgumentError unless importers[:links]
+      raise ArgumentError unless importers[:links]['next_page']
+      next_page_url = importers[:links]['next_page']
+      self.find_page("#{host}#{next_page_url}")
+    end
+
+    def self.previous_page(host, importers)
+      raise ArgumentError unless importers[:links]
+      raise ArgumentError unless importers[:links]['previous_page']
+      previous_page = importers[:links]['previous_page']
+      self.find_page("#{host}#{previous_page}")
+    end
+
+    private
+    def self.parse(json)
+      importer = Hash.new
+      importer[:id] = json['_id']
+      importer[:created_at] = self.parse_date(json['created_at'])
+      importer[:end_time] = self.parse_date(json['end_time'])
+      importer[:error_details] = json['error_details']
+      importer[:import_time] = json['import_time']
+      importer[:imported_items] = json['imported_items']
+      importer[:inserted_items] = json['inserted_items']
+      importer[:partner_id] = json['partner_id']
+      importer[:start_time] = self.parse_date(json['start_time'])
+      importer[:status] = json['status']
+      importer[:status_messages] = json['status_messages']
+      importer[:steps] = json['steps']
+      importer[:partner_slug] = json['partner_slug']
+      importer[:updated_at] = self.parse_date(json['updated_at'])
+      importer[:updated_items] = json['updated_items']
+      importer[:ignored_items] = json['ignored_items']
+      return importer
+    end
+
+    def self.parse_date(time)
+      DateTime.strptime(time, "%Y-%m-%dT%H:%M:%S%z") unless time.nil?
+    end
+
+    def self.result(response)
+      CapProducts::Result.new(response.code, response.body)
+    end
+
+    def self.error(e)
+      return self.result(e.response) if defined? e.response
+      CapProducts::Result.new(500, "Erro interno: #{e}")
+    end
+
+    def self.find_page(next_or_previous_url)
+      begin
+        response =  RestClient.get("#{next_or_previous_url}")
+        if(response.code == 200)
+          result = self.result(response)
+          importers = {:items => [], :links => {}}
+          items = JSON.parse(response.body)
+          items['items'].each do |importer|
+            importers[:items] << self.parse(importer)
+          end
+          items['links'].each do |link|
+            importers[:links][link['rel']] = link['href']
+          end
+          result.content = importers
+          return result
+        else
+          self.result(response)
+        end
+      rescue => e
+          self.result(e.response)
+      end
+    end
+  end
+end
+
