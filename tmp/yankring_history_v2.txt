@@ -1,3 +1,15 @@
+fi,V
+if [ ! -d ~/.vim ]; then,V
+ ,v
+if [ ! -d ~/.vim ]; then,v
+,V
+elddse,V
+cp -r * ~/.vimcp .vimrc ~/,v
+vtestfile exists!,v
+mkdir ~/.vim,V
+cwtestfile,v
+cwcdd * ~,V
+cp,v
 233,v
 twilight,v
 custom,v
@@ -21,7 +33,6 @@ s,v
 Tparse,v
 ),v
 e,v
-,V
 Time.parse(assigns[:importers].first[:end_time]) == Time.parse(time_now),v
 ImportersController,v
 Gemfile.lock,v
@@ -49,7 +60,6 @@ uunavailable_itemsnavailable_items,v
 ',v
 @importer[:unavailable_items] ,v
     <dt>Novos</dt>  <dd><%= @importer[:inserted_items] %></dd>,v
- ,v
   <dt>Novos</dt>  <dd><%= @importer[:inserted_items] %></dd>,v
 Removidos,v
 d,v
@@ -88,13 +98,3 @@ require 'ruby-debug',V
 users_controller_spec.rb,V
 CapProducts::Importer,v
 users_controller_spec.rb,v
-21/03/2012,v
-[   {      "_id":"4f6b890a65bde12fbf000004",      "created_at":"2012-03-22T17:18:18-03:00",      "end_time":"2012-03-01T03:00:00+00:00",      "error_details":null,      "import_time":0,      "imported_items":1325,      "inserted_items":2,      "partner_id":"1",      "partner_slug":"anita",      "start_time":"2012-03-01T03:00:00+00:00",      "status":"RECEIVED",      "status_messages":null,      "steps":null,      "updated_at":"2012-03-22T17:18:18-03:00",      "updated_items":1323   },   {      "_id":"4f6b890a65bde12fbf000005",      "created_at":"2012-03-22T17:18:18-03:00",      "end_time":"2012-03-02T03:00:00+00:00",      "error_details":null,      "import_time":0,      "imported_items":1325,      "inserted_items":2,      "partner_id":"2",      "partner_slug":"anita",      "start_time":"2012-03-02T03:00:00+00:00",      "status":"RECEIVED",      "status_messages":null,      "steps":null,      "updated_at":"2012-03-22T17:18:18-03:00",      "updated_items":1323   },   {      "_id":"4f6b890a65bde12fbf000006",      "created_at":"2012-03-22T17:18:18-03:00",      "end_time":"2012-03-03T03:00:00+00:00",      "error_details":null,      "import_time":0,      "imported_items":1325,      "inserted_items":2,      "partner_id":"3",      "partner_slug":"anita",      "start_time":"2012-03-03T03:00:00+00:00",      "status":"RECEIVED",      "status_messages":null,      "steps":null,      "updated_at":"2012-03-22T17:18:18-03:00",      "updated_items":1323   },   {      "_id":"4f6b890a65bde12fbf000007",      "created_at":"2012-03-22T17:18:18-03:00",      "end_time":"2012-03-04T03:00:00+00:00",      "error_details":null,      "import_time":0,      "imported_items":1325,      "inserted_items":2,      "partner_id":"4",      "partner_slug":"anita",      "start_time":"2012-03-04T03:00:00+00:00",      "status":"RECEIVED",      "status_messages":null,      "steps":null,      "updated_at":"2012-03-22T17:18:18-03:00",      "updated_items":1323   }],v
-assigns[:importers],v
-/abd/app/cap-admin/releases/20120322185239,v
-importers_controller_spec.rb,v
-        2.times do          create(:importer, :start_time => Time.parse('2012-02-26'));          create(:importer, :end_time => Time.parse('2012-02-26'));          create(:importer, :start_time => Time.parse('2012-02-26'), :end_time=>Time.parse('2012-02-26'));        end,v
-    it { @importer.partner_name.should   eq "KENNER" },V
-    self.partner_name     = json['partner_name'],V
-  include Mongoid::Slug,V
-  slug :partner_namedd,V
