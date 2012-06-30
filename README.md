@@ -4,8 +4,8 @@ vim-files
 Personal vim files
 ------------------
 
-* Programming plugin
-* Themes (molokai as default)
+* Programming plugins
+* Themes ([molokai](http://winterdom.com/2008/08/molokaiforvim) as default)
 * Install script
 
 Installing
