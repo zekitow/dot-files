@@ -1,4 +1,0 @@
-config = YAML::load(File.open(File.dirname(__FILE__) + "/../config.yml"))
-
-SOURCE_COPY_DIR = config["copy"]["source_copy_dir"]
-

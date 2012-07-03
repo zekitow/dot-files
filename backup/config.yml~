@@ -1,4 +1,0 @@
-# custom properties
-copy:
-  source_copy_dir : /tmp
-  destiny_copy_dir: 

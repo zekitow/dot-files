@@ -1,9 +1,0 @@
-require 'spec_helper'
-
-describe Task do
-
-  it "should read 'source_copy_dir' constant" do
-    # SOURCE_COPY_DIR.should_not be_empty
-  end
-
-end

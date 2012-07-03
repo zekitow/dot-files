@@ -1,4 +1,0 @@
-logbridge:
-    local_log_dir: /tmp/
-    remote_log_dir: /tmp/
-    log_extension: .log

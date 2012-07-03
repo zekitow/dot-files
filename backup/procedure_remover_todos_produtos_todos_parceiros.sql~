@@ -1,9 +1,0 @@
-delimiter $$
-drop procedure if exists deletar_produtos $$
-create procedure deletar_produtos (param_id int(11))
-begin
-  delete from tb_produtos_tb_imagens;
-  delete from tb_imagens;
-  delete from tb_produtos_tb_quantidade_cor;
-  delete from tb_produtos;
-end $$
