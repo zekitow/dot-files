@@ -65,7 +65,7 @@ set history=100
 " set undodir=~/.vim/tmp
 
 " backup options
-set backup " turn on backup
+"set backup " turn on backup
 set backupdir=~/.vim/backup " dir to save backup files
 set directory=~/.vim/tmp " dir to keep all swap files
 
