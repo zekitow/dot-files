@@ -1,100 +1,100 @@
-fi,V
-if [ ! -d ~/.vim ]; then,V
- ,v
-if [ ! -d ~/.vim ]; then,v
-,V
-elddse,V
-cp -r * ~/.vimcp .vimrc ~/,v
-vtestfile exists!,v
-mkdir ~/.vim,V
-cwtestfile,v
-cwcdd * ~,V
-cp,v
-233,v
-twilight,v
-custom,v
-cterm=bold,v
-        time_now = Time.now,V
-      <option value="desc">Decrescente</option>,v
-sorting_field,v
-import geditimport gtkimport os# Toggle menu item XMLui_manager_xml = """<ui>  <menubar name="MenuBar">    <menu name="ViewMenu" action="View">      <placeholder name="ViewOps_2">        <separator/>        <menuitem name="toggleMenuBar" action="toggleMenuBar"/>      </placeholder>    </menu>  </menubar></ui>"""class toggleMenuInstance:  def __init__(self, plugin, window):        self._window = window    self._plugin = plugin        # Find location of Toggle Menu config file (if it's possible)    try: self._config     = os.path.expanduser('~')+"/.toggleMenu"    except: self._config  = ""        # Get gEdit main menu bar object    self._manager     = self._window.get_ui_manager()    self._menuBar     = self._manager.get_widget("/ui/MenuBar")    self._menuVisible = True        # Append custom menu item and key shortcut to toggle menu bar    toggleMenuBar = (      'toggleMenuBar',      None,      _("Toggle Menu"),      '<Ctrl><Alt>M',      _("Show or Hide Menu Bar"),      self.toggle    )    self._action_group = gtk.ActionGroup("toggleMenuBar")    self._action_group.add_actions([toggleMenuBar])    self._manager.insert_action_group(self._action_group, -1)        self._ui_id = self._manager.add_ui_from_string(ui_manager_xml)        # Auto start with menu hidden?    try:      if os.path.exists(self._config):        self._menuBar.hide()        self._menuVisible = False            except: pass        # Track gedit window for sudden fullscreen movements    self._trackWindow_id = self._window.connect("window-state-event", self.trackWindow)      def trackWindow(self, window, callback_data):    if not callback_data.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN and callback_data.changed_mask & gtk.gdk.WINDOW_STATE_FULLSCREEN:      # If menu wasn't visible before fullscreen, hide it again (with fake toggle)      if not self._menuVisible:        self.toggle("_")          # Show menu, remove custom menu item & keyboard shortcut  def deactivate(self):    self._menuBar.show()    self._manager.remove_ui(self._ui_id)    self._manager.ensure_update()        self._window.disconnect(self._trackWindow_id)        del self    # Toggle menu bar and save current status in file (kinda)  def toggle(self, action):    if self._menuBar.flags() & gtk.VISIBLE:            self._menuBar.hide()      self._menuVisible = False            try: open(self._config, 'w').close()      except: pass        else:            self._menuBar.show()      self._menuVisible = True            try: os.unlink(self._config)      except: pass# Basic gedit plugin structure (nothing interesting)class toggleMenuPlugin(gedit.Plugin):  def __init__(self):    gedit.Plugin.__init__(self)    self._instances = {}    def activate(self, window):    self._instances[window] = toggleMenuInstance(self, window)      def deactivate(self, window):    self._instances[window].deactivate()    del self._instances[window]      def update_ui(self, window):    pass,v
-toggleMenu.py,v
-        puts "#{assigns[:importers].last[:end_time]} == #{Time.parse('2012-03-01').getutc}",V
-        puts "#{assigns[:importers].first[:end_time]} == #{time_now.getutc}",V
-first,v
-Time.parse('2012-03-01').getutc,v
-time_now.getutc,v
-        puts "#{assigns[:importers].first[:end_time]} == #{time_now.getutc}",v
-(,v
-parse,v
+63861767,v
+7,v
+iso8601,v
+debugger;,v
 .,v
-Time,v
-s,v
-Tparse,v
 ),v
+t,v
+c,v
 e,v
-Time.parse(assigns[:importers].first[:end_time]) == Time.parse(time_now),v
-ImportersController,v
-Gemfile.lock,v
-config/initializers/quiet_assets.rb,v
-{"items":[{"_id":"4f64cf039ddd122adc00000c",          "start_time":"2012-03-17T16:38:14+00:00",          "status":"ERROR","partner_id":"4f63ba079ddd122adc000001",          "import_time":0,          "created_at":"2012-03-17T14:50:59-03:00",          "updated_at":"2012-03-17T14:50:59-03:00"}],"total_items":11,"items_per_page":10,"links":[{"rel":"self","type":"application/json","href":"http://localhost:3000/importers?end_time=2012-03-31&page=2&start_time=2011-01-01"},{"rel":"previous_page","type":"application/json","href":"/importers?end_time=2012-03-31&page=1&start_time=2011-01-01"}]},v
-  context "when consulting an Importer successfully" do    before(:all) do      @host = "http://localhost:3000"      FakeWeb.allow_net_connect = false      id = "123"      @url = "http://localhost:3000/importers/#{id}"      body = File.open("spec/resources/importer.json").read()      FakeWeb.register_uri(:get, @url, :status => ["200"], :body => body)      @importer = CapProducts::Importer.show(@host, id).content    end    it { @importer.should_not be_nil }    it { @importer[:id].should              eq '4f63bda29ddd122adc000005' }    it { @importer[:created_at].should      eq DateTime.new(2012,03,16,19,24,34,'-03:00') }    it { @importer[:end_time].should        be_nil }    it { @importer[:error_details].should   eq "java.lang.UnsupportedOperationException" }    it { @importer[:import_time].should     eq 10 }    it { @importer[:imported_items].should  eq 10 }    it { @importer[:inserted_items].should  be_nil }    it { @importer[:status].should          eq 'ERROR' }    it { @importer[:status_messages].should be_nil }    it { @importer[:steps].should           eq ["Download do XML","Definindo lista de cores"]}    it { @importer[:start_time].should      eq DateTime.new(2012,03,16,22,24,34,'+00:00') }    it { @importer[:updated_items].should   be_nil }    it { @importer[:updated_at].should      eq DateTime.new(2012,03,16,19,24,34,'-03:00') }    it { @importer[:partner_slug].should    eq "anita" }  end,v
-ow! vc já ta na fgon,v
-unavailable_products,v
-/,v
-Vamos criar,v
-4f6c54ab65bde10cce0000b7,v
-  <dt>Status</dt>  <dd><%= @importer[:status] %></dd>,v
-<%= @importer[:partner_slug] %>,v
- ,V
-  <dd><%= @importer[:inserted_items] %></dd>,V
-updated_items,v
-  <dd><%= @importer[:inserted_items] == nil ? 0 : @importer[updated_items] %></dd>,V
-:,v
-pdated_items,v
-  <dd><%= @importer[:updated_items] == nil ? 0 : @importer[:updated_items] %></dd>,v
-  <dd><%= @importer[:updated_items] %></dd>,V
-unavailable_items,v
-uunavailable_itemsnavailable_items,v
-  <dd><%= @importer[:unavailable_items] == nil ? 0 : @importer[:unavailable_items] %></dd>,v
-',v
-@importer[:unavailable_items] ,v
-    <dt>Novos</dt>  <dd><%= @importer[:inserted_items] %></dd>,v
-  <dt>Novos</dt>  <dd><%= @importer[:inserted_items] %></dd>,v
-Removidos,v
-d,v
-  <dt>Status</dt>  <dd><%= @importer[:status] %></dd>,v
-  ,V
-  <dd><%= @importer[:partner_id] %></dd>,V
-  <dt>Partner id</dt>,V
-  <dd><%= @importer[:status_messages] %></dd>,V
-  <dt>Status messages</dt>,V
-Y,v
-/%,v
+j,v
+b,v
+u,v
+s,v
+(,v
+r,v
+a,v
+p,v
 m,v
-('%,v
-dwqstrftime,v
-strftime,v
-].,v
-  <dt>Data Início</dt>  <dd><%= @importer[:start_time].strftime('%d/%m/%Y') %></dd>,v
+i,v
 T,v
-  <dt>Data Fim</dt>  <dd><%= @importer[:end_time] == nil ? '' : @importer[:end_time].strftime('%d/%m/%Y %T') %></dd>,v
-  <dt>Data Início</dt>  <dd><%= @importer[:start_time].strftime('%d/%m/%Y %T') %></dd>,v
-time,v
-End ,v
-<%= importer[:end_time] == nil ? '' : importer[:end_time].strftime('%d/%m/%Y %T') %>,v
-<%= @importer[:end_time] %>,v
-<%= importer[:end_time] == nil ? '' : importer[:end_time].strftime('%d/%m/%Y %T') %><,v
-<,v
-<%= importer[:start_time].strftime('%d/%m/%Y %T') %>,v
-  <dd><%= @importer[:id] %></dd>,V
-  <dt>ID</dt>,V
-/tmp/cap-depara_parceiros-20120326.csv,v
-0,v
-count(tb_produtos.id),v
-require 'ruby-debug',V
-      else,V
-/abd/app/cap-admin/shared/bundle,v
-users_controller_spec.rb,V
-CapProducts::Importer,v
-users_controller_spec.rb,v
+Time.parse(,v
+to_date,v
+parse,v
+%,v
+ ,v
+%Y-%m-%d %H:%M:%S %Z,v
+              @library_item = JSON.parse(@library_item.to_json),V
+              @library_item.inactivated_at.utc,V
+debugger,v
+{,v
+==,v
+            #its(["inactivated_at"])  { subject.utc?.should be_true },V
+y,v
+:,v
+d,v
+            its(["inactivated_at"])  { should.utc? == @library_item.inactivated_at.utc? },V
+            its(["inactivated_at"])  { subject.utc?.should be_true },V
+e             ed_at.utc? },v
+            its(["inactivated_at"])  { debugddger;should == @library_item.inactivated_at.utc },V
+;,v
+F,v
+            its(["inactivated_at"])  { debugger;should == @library_item.inactivated_at.utc },V
+.reload,v
+inactive ,v
+library_item,v
+@,v
+eq @library_item.inactive,v
+eq @library_item.inactivated_at.try(:utc),v
+utc,v
+(:,v
+try,v
+          after   { LibraryItem.delete_all },V
+,V
+, :inactive => true, :inactivated_at => Time.now,v
+            before  { @library_item = Factory(:library_item, :inactive => true, :inactivated_at => Time.now) }            its(["id"])              { should eq @library_item.id }            its(["product_id"])      { should eq @library_item.product_id }            its(["format_id"])       { should eq @library_item.format_id }            its(["order_id"])        { should eq @library_item.order_id }            its(["ess_user_id"])     { should eq @library_item.ess_user_id }            its(["transaction_id"])  { should eq @library_item.transaction_id }            its(["last_version"])    { should eq @library_item.last_version }            its(["last_version_id"]) { should eq @library_item.last_version_id }            its(["inactive"])        { should eq @library_item.inactive }            its(["inactivated_at"])  { should eq @library_item.inactivated_at.try(:utc) },v
+          before  { @library_item = Factory(:library_item) },V
+    debugger,V
+              it { should eq @library_item.attributes_for_feed },V
+LibraryItem,v
+unscoped,v
+to,v
+              its(:product_id)      { should eq @library_item.product_id }              its(:format_id)       { should eq @library_item.format_id }              its(:order_id)        { should eq @library_item.order_id }              its(:ess_user_id)     { should eq @library_item.ess_user_id }              its(:transaction_id)  { should eq @library_item.transaction_id }              its(:last_version)    { should eq @library_item.last_version }              its(:last_version_id) { should eq @library_item.last_version_id }              its(:inactive)        { should eq @library_item.inactive }              its(:inactivated_at)  { should eq @library_item.inactivated_at.try(:utc) },V
+",v
+[",v
+=> self.=> self.=> self.=> self.=> self.=> self.=> self.=> self.=> self.=> self.,8
+>,v
+      :id => self.id, :product_id => self.product_id, :format_id => self.format_id,      :order_id => self.order_id, :ess_user_id => self.ess_user_id, :transaction_id => self.transaction_id,      :last_version => self.last_version, :last_version_id => self.last_version_id,      :inactive => self.inactive, :inactivated_at => self.inactivated_at.try(:utc),v
+          before(:all) { @user = Factory(:user) },V
+cwusuarios,v
+          subject { Hash.from_xml(get('/feeds/usuarios').body)["data"]["usuarios"].last }          before(:all) { @user = Factory(:user) },v
+          ,V
+          context "and library item is active",V
+[color]  branch = auto  diff = auto  status = auto[color "branch"]  current = yellow reverse  local = yellow  remote = green[color "diff"]  meta = yellow bold  frag = magenta bold  old = red bold  new = green bold[color "status"]  added = yellow  changed = green  untracked = cyan,v
+1346638,v
+8,v
+1,v
+-,v
+dddd fi,V
+#!/usr/bin/env bash# This is an RVM Project .rvmrc file, used to automatically load the ruby# development environment upon cd'ing into the directory# First we specify our desired <ruby>[@<gemset>], the @gemset name is optional,# Only full ruby name is supported here, for short names use:#     echo "rvm use ree" > .rvmrcenvironment_id="ree-1.8.7-2011.03@asiclient"# Uncomment the following lines if you want to verify rvm version per project# rvmrc_rvm_version="1.14.3 (stable)" # 1.10.1 seams as a safe start# eval "$(echo ${rvm_version}.${rvmrc_rvm_version} | awk -F. '{print "[[ "$1*65536+$2*256+$3" -ge "$4*65536+$5*256+$6" ]]"}' )" || {#   echo "This .rvmrc file requires at least RVM ${rvmrc_rvm_version}, aborting loading."#   return 1# }# First we attempt to load the desired environment directly from the environment# file. This is very fast and efficient compared to running through the entire# CLI and selector. If you want feedback on which environment was used then# insert the word 'use' after --create as this triggers verbose mode.if [[ -d "${rvm_path:-$HOME/.rvm}/environments"  && -s "${rvm_path:-$HOME/.rvm}/environments/$environment_id" ]]then  \. "${rvm_path:-$HOME/.rvm}/environments/$environment_id"  [[ -s "${rvm_path:-$HOME/.rvm}/hooks/after_use" ]] &&    \. "${rvm_path:-$HOME/.rvm}/hooks/after_use" || true  if [[ $- == *i* ]] # check for interactive shells  then echo "Using: $(tput setaf 2)$GEM_HOME$(tput sgr0)" # show the user the ruby and gemset they are using in green  else echo "Using: $GEM_HOME" # don't use colors in non-interactive shells  fielse  # If the environment file has not yet been created, use the RVM CLI to select.  rvm --create use  "$environment_id" || {    echo "Failed to create RVM environment '${environment_id}'."    return 1  }fi# If you use bundler, this might be useful to you:# if [[ -s Gemfile ]] && {#   ! builtin command -v bundle >/dev/null ||#   builtin command -v bundle | GREP_OPTIONS= \grep $rvm_path/bin/bundle >/dev/null# }# then#   printf "%b" "The rubygem 'bundler' is not installed. Installing it now.\n"#   gem install bundler# fi# if [[ -s Gemfile ]] && builtin command -v bundle >/dev/null# then#   bundle install | GREP_OPTIONS= \grep -vE '^Using|Your bundle is complete'#,v
+cwfiles = nil,v
+true,v
+server1,v
+  - "server2:11211:2",V
+admin_development,v
+spec/lib/readers/partners/base_spec.rb,v
+    - ORACLE_HOME=/usr/lib/oracle/11.2/client64    - LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib/    - TNS_ADMIN=/abd/app/ess/current/config,V
+Time.now.in_time_zone("Eastern Time (US & Canada)"),v
+sudo -u mongodb mongod -f /etc/mongodb.conf --repair,v
+couldn't connect to server 127.0.0.1 shell/mongo.js:84,v
+deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen,v
+robbyrussell,v
+/usr/include/sys/types.h,v
+should == 200,v
+      subject { last_response },V
+        subject { last_response },V
+        end,V
+a_success_request,v
+          before { post '/assinaturas/consultar-voucher', valid_params }          its(:status) { should be_a_success_request }          its(:body)   { should be_empty }        end,v
+k,v
+post '/assinaturas/consultar-voucher', valid_params },V

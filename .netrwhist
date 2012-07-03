@@ -1,6 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/work/cap/admin/config'
-let g:netrw_dirhist_2='/work/cap/cap-products-gem'
-let g:netrw_dirhist_3='/work/cap/cap-admin'
-let g:netrw_dirhist_4='/work/cap/cap-products/spec'
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/abd/app/dls/config'
+let g:netrw_dirhist_2='/abd/app/dls'
+let g:netrw_dirhist_3='/work/ambiente/jetty7'
+let g:netrw_dirhist_4='/etc/mysql'
+let g:netrw_dirhist_5='/abd/app/dls/app/models/param'
+let g:netrw_dirhist_6='/abd/app/dls/spec/integration'
+let g:netrw_dirhist_7='/home/jribeiro/.rvm/gems/ree-1.8.7-2011.03@dls/gems/date_validator-0.6.3'
+let g:netrw_dirhist_8='/abd/app/admin/config'

@@ -1,1 +1,1 @@
-rvm --create use ree@cap-deploy
+rvm use ree@dls
