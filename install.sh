@@ -10,3 +10,4 @@ echo Copying files
 cp -r * ~/.vim
 cp .vimrc ~/
 
+echo Done.

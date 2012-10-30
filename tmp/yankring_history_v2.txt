@@ -1,100 +1,100 @@
-63861767,v
-7,v
-iso8601,v
-debugger;,v
-.,v
-),v
-t,v
-c,v
-e,v
-j,v
-b,v
-u,v
-s,v
-(,v
-r,v
-a,v
-p,v
-m,v
-i,v
-T,v
-Time.parse(,v
-to_date,v
-parse,v
-%,v
+            debugger,V
  ,v
-%Y-%m-%d %H:%M:%S %Z,v
-              @library_item = JSON.parse(@library_item.to_json),V
-              @library_item.inactivated_at.utc,V
-debugger,v
+,,v
+0,v
+a,v
+/,v
+            value.slice!(0, 6) # Removendo </hash>,V
+# Removendo </hash>,v
+(value.size - 7),v
+            value.slice!(0, (value.size - 7)),V
+filter(value).to_xml(:skip_instruct => true, :except => [:hash])),v
 {,v
-==,v
-            #its(["inactivated_at"])  { subject.utc?.should be_true },V
-y,v
-:,v
-d,v
-            its(["inactivated_at"])  { should.utc? == @library_item.inactivated_at.utc? },V
-            its(["inactivated_at"])  { subject.utc?.should be_true },V
-e             ed_at.utc? },v
-            its(["inactivated_at"])  { debugddger;should == @library_item.inactivated_at.utc },V
-;,v
-F,v
-            its(["inactivated_at"])  { debugger;should == @library_item.inactivated_at.utc },V
-.reload,v
-inactive ,v
-library_item,v
-@,v
-eq @library_item.inactive,v
-eq @library_item.inactivated_at.try(:utc),v
-utc,v
-(:,v
-try,v
-          after   { LibraryItem.delete_all },V
+{})),v
+root => true,v
+false,v
+',v
+'')),v
+nil,v
+:root => nil,v
+            value,V
 ,V
-, :inactive => true, :inactivated_at => Time.now,v
-            before  { @library_item = Factory(:library_item, :inactive => true, :inactivated_at => Time.now) }            its(["id"])              { should eq @library_item.id }            its(["product_id"])      { should eq @library_item.product_id }            its(["format_id"])       { should eq @library_item.format_id }            its(["order_id"])        { should eq @library_item.order_id }            its(["ess_user_id"])     { should eq @library_item.ess_user_id }            its(["transaction_id"])  { should eq @library_item.transaction_id }            its(["last_version"])    { should eq @library_item.last_version }            its(["last_version_id"]) { should eq @library_item.last_version_id }            its(["inactive"])        { should eq @library_item.inactive }            its(["inactivated_at"])  { should eq @library_item.inactivated_at.try(:utc) },v
-          before  { @library_item = Factory(:library_item) },V
-    debugger,V
-              it { should eq @library_item.attributes_for_feed },V
-LibraryItem,v
-unscoped,v
-to,v
-              its(:product_id)      { should eq @library_item.product_id }              its(:format_id)       { should eq @library_item.format_id }              its(:order_id)        { should eq @library_item.order_id }              its(:ess_user_id)     { should eq @library_item.ess_user_id }              its(:transaction_id)  { should eq @library_item.transaction_id }              its(:last_version)    { should eq @library_item.last_version }              its(:last_version_id) { should eq @library_item.last_version_id }              its(:inactive)        { should eq @library_item.inactive }              its(:inactivated_at)  { should eq @library_item.inactivated_at.try(:utc) },V
-",v
-[",v
-=> self.=> self.=> self.=> self.=> self.=> self.=> self.=> self.=> self.=> self.,8
->,v
-      :id => self.id, :product_id => self.product_id, :format_id => self.format_id,      :order_id => self.order_id, :ess_user_id => self.ess_user_id, :transaction_id => self.transaction_id,      :last_version => self.last_version, :last_version_id => self.last_version_id,      :inactive => self.inactive, :inactivated_at => self.inactivated_at.try(:utc),v
-          before(:all) { @user = Factory(:user) },V
-cwusuarios,v
-          subject { Hash.from_xml(get('/feeds/usuarios').body)["data"]["usuarios"].last }          before(:all) { @user = Factory(:user) },v
-          ,V
-          context "and library item is active",V
-[color]  branch = auto  diff = auto  status = auto[color "branch"]  current = yellow reverse  local = yellow  remote = green[color "diff"]  meta = yellow bold  frag = magenta bold  old = red bold  new = green bold[color "status"]  added = yellow  changed = green  untracked = cyan,v
-1346638,v
-8,v
-1,v
--,v
-dddd fi,V
-#!/usr/bin/env bash# This is an RVM Project .rvmrc file, used to automatically load the ruby# development environment upon cd'ing into the directory# First we specify our desired <ruby>[@<gemset>], the @gemset name is optional,# Only full ruby name is supported here, for short names use:#     echo "rvm use ree" > .rvmrcenvironment_id="ree-1.8.7-2011.03@asiclient"# Uncomment the following lines if you want to verify rvm version per project# rvmrc_rvm_version="1.14.3 (stable)" # 1.10.1 seams as a safe start# eval "$(echo ${rvm_version}.${rvmrc_rvm_version} | awk -F. '{print "[[ "$1*65536+$2*256+$3" -ge "$4*65536+$5*256+$6" ]]"}' )" || {#   echo "This .rvmrc file requires at least RVM ${rvmrc_rvm_version}, aborting loading."#   return 1# }# First we attempt to load the desired environment directly from the environment# file. This is very fast and efficient compared to running through the entire# CLI and selector. If you want feedback on which environment was used then# insert the word 'use' after --create as this triggers verbose mode.if [[ -d "${rvm_path:-$HOME/.rvm}/environments"  && -s "${rvm_path:-$HOME/.rvm}/environments/$environment_id" ]]then  \. "${rvm_path:-$HOME/.rvm}/environments/$environment_id"  [[ -s "${rvm_path:-$HOME/.rvm}/hooks/after_use" ]] &&    \. "${rvm_path:-$HOME/.rvm}/hooks/after_use" || true  if [[ $- == *i* ]] # check for interactive shells  then echo "Using: $(tput setaf 2)$GEM_HOME$(tput sgr0)" # show the user the ruby and gemset they are using in green  else echo "Using: $GEM_HOME" # don't use colors in non-interactive shells  fielse  # If the environment file has not yet been created, use the RVM CLI to select.  rvm --create use  "$environment_id" || {    echo "Failed to create RVM environment '${environment_id}'."    return 1  }fi# If you use bundler, this might be useful to you:# if [[ -s Gemfile ]] && {#   ! builtin command -v bundle >/dev/null ||#   builtin command -v bundle | GREP_OPTIONS= \grep $rvm_path/bin/bundle >/dev/null# }# then#   printf "%b" "The rubygem 'bundler' is not installed. Installing it now.\n"#   gem install bundler# fi# if [[ -s Gemfile ]] && builtin command -v bundle >/dev/null# then#   bundle install | GREP_OPTIONS= \grep -vE '^Using|Your bundle is complete'#,v
-cwfiles = nil,v
-true,v
-server1,v
-  - "server2:11211:2",V
-admin_development,v
-spec/lib/readers/partners/base_spec.rb,v
-    - ORACLE_HOME=/usr/lib/oracle/11.2/client64    - LD_LIBRARY_PATH=/usr/lib/oracle/11.2/client64/lib/    - TNS_ADMIN=/abd/app/ess/current/config,V
-Time.now.in_time_zone("Eastern Time (US & Canada)"),v
-sudo -u mongodb mongod -f /etc/mongodb.conf --repair,v
-couldn't connect to server 127.0.0.1 shell/mongo.js:84,v
-deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen,v
-robbyrussell,v
-/usr/include/sys/types.h,v
-should == 200,v
-      subject { last_response },V
-        subject { last_response },V
-        end,V
-a_success_request,v
-          before { post '/assinaturas/consultar-voucher', valid_params }          its(:status) { should be_a_success_request }          its(:body)   { should be_empty }        end,v
-k,v
-post '/assinaturas/consultar-voucher', valid_params },V
+Rack::Utils.parse_nested_query,v
+            value = Rack::Utils.parse_nested_query(value)            hash.merge!(field => filter(value)),v
+e,v
+        debugger,V
+123456,v
+        'body'     => '<signInRequest method="standard" xmlns="http://ns.adobe.com/adept"><username>adobe-test1@adobe.com</username><password>123456</password></signInRequest>',V
+        'body'     => '<signInRequest method\"=>{\"standard\" xmlns\"=>\"http://ns.adobe.com/adept\"> <username>teste@teste.com.br</username> <password>[FILTERED]</password> </signInRequest>',V
+<signInRequest method\"=>{\"standard\" xmlns\"=>\"http://ns.adobe.com/adept\"> <username>teste@teste.com.br</username> <password>123456</password> </signInRequest>,v
+      debugger,V
+request_body_obfuscate,v
+request_body,v
+        before(:all) { Audit.delete_all },V
+query string,v
+      context "when data is set as query string" do        subject { Audit.create(:request => request_body, :response => response).request }        before(:all) { Audit.delete_all }        it { eval(subject)['body'].should == request_body_obfuscate['body'] }      end,v
+      context "when data is set as hash" do,V
+      context "when data is set as hash" do        subject { Audit.create(:request => request, :response => response).request }        before(:all) { Audit.delete_all }        it { eval(subject)['body'].should == request_obfuscate['body'] }      end      context "when data is set as query string" do        subject { Audit.create(:request => request_body, :response => response).request }        before(:all) { Audit.delete_all }        it { eval(subject)['body'].should == request_body_obfuscate['body'] }      end    end,v
+        'body'     => '<signInRequest method\"=>{\"\\\"standard\\\" xmlns\"=>\"\\\"http://ns.adobe.com/adept\\\"> <username>teste@teste.com.br</username> <password>123456</password> </signInRequest>',V
+        'body'     => '<signInRequest method\"=>{\"standard\" xmlns\"=>\"http://ns.adobe.com/adept\"> <username>teste@teste.com.br</username> <password>123456</password> </signInRequest>',V
+        'body'     => '<signInResponse xmlns="http://ns.adobe.com/adept"> <user>urn:uuid:0xxxxxxx-xxxx-1xxx-xxxx-yyyyyyyyyyyy</user> <label>Fulano</label> </signInResponse>',V
+<signInResponse xmlns="http://ns.adobe.com/adept"> <user>urn:uuid:0xxxxxxx</user> <label>Fulano</label> </signInResponse>,v
+-xxxx-1xxx-xxxx-yyyyyyyyyyyy,v
+        'body'     => { 'params' => Rack::Utils.parse_nested_query('document=25508724281&email=usuario@teste.com.br&senha=[FILTERED]') },V
+\,v
+},v
+        'body'     => '' },V
+document=25508724281&email=usuario@teste.com.br&senha=123456,v
+{ 'params' ,v
+    let(:request_body)  do      {        'fullpath' => '/account/partners/iba',        'body'     => { 'params' => 'document=25508724281&email=usuario@teste.com.br&senha=123456' }      }    end    let(:request_body_obfuscate) do      {        'fullpath' => '/account/partners/iba',        'body'     => { 'params' => Rack::Utils.parse_nested_query('document=25508724281&email=usuario@teste.com.br&senha=[FILTERED]') }      }    end,v
+    let(:request_obfuscate) do      request_obfuscate = request.clone      request_obfuscate['body']['params']['password'] = '[FILTERED]'      request_obfuscate['body']['params']['confirm_password'] = '[FILTERED]'      request_obfuscate    end,v
+  SENSITIVE_DATA = %w{password senhaAssinante senhaAtual novaSenha codAdministradoraCartao codAgencia codBanco codFormaPagto codValidadeCartao datVencimentoDebito digitoAgencia digitoConta numCartao numConta numDocumentoTitular },V
+      SENSITIVE_DATA = %w{confirm_password nova-senha senha-nova senha password senhaAssinante senhaAtual novaSenha codAdministradoraCartao codAgencia codBanco codFormaPagto codValidadeCartao datVencimentoDebito digitoAgencia digitoConta numCartao numConta numDocumentoTitular},V
+confirm_password ,v
+MongoLog::Store::WebTraffic,v
+end,V
+# encoding: utf-8require 'spec_helper'describe MongoLog::Store::WebTraffic do  it { MongoLog::Store::WebTraffic.should include(MongoMapper::Document) }  it { MongoLog::Store::WebTraffic.keys.should include("created_at", "updated_at") }  context "when create" do    let(:response) { {"status" => "500"} }    let(:request)  do      {        'fullpath' => '/account/partners/iba',        'body'     => { 'method' => 'getLinks',                        'params' => { 'document' => '25508724281',                                      'email'    => 'usuario-com-vinculos-rejeitados@teste.com.br',                                      'password' => '123456',                                      'confirm_password' => '123456'                                    }                      }      }    end    let(:request_body)  do      {        'fullpath' => '/account/partners/iba',        'body'     => { 'params' => 'document=25508724281&email=usuario@teste.com.br&senha=123456' }      }    end    let(:request_body_obfuscate) do      {        'fullpath' => '/account/partners/iba',        'body'     => { 'params' => Rack::Utils.parse_nested_query('document=25508724281&email=usuario@teste.com.br&senha=[FILTERED]') }      }    end    let(:request_obfuscate) do      request_obfuscate = request.clone      request_obfuscate['body']['params']['password'] = '[FILTERED]'      request_obfuscate['body']['params']['confirm_password'] = '[FILTERED]'      request_obfuscate    end    context "obfuscate sensitive data" do      context "when data is set as hash" do        subject { MongoLog::Store::WebTraffic.create(:request => request, :response => response).request }        before(:all) { MongoLog::Store::WebTraffic.delete_all }        it { eval(subject)['body'].should == request_obfuscate['body'] }      end      context "when data is set as query string" do        subject { MongoLog::Store::WebTraffic.create(:request => request_body, :response => response).request }        before(:all) { MongoLog::Store::WebTraffic.delete_all }        it { eval(subject)['body'].should == request_body_obfuscate['body'] }      end    end    context "inspect attributes" do      context "request" do        let(:attributes) { {:request => {"fake" => "request"}, :response => {}} }        let(:log)        { MongoLog::Store::WebTraffic.create(attributes) }        it { log.should be_valid }        it { log.attributes[:request].should == attributes[:request].inspect }      end      context 'response' do        let(:attributes) { {:request => {}, :response => {"fake" => "response"}} }        let(:log)        { MongoLog::Store::WebTraffic.create(attributes) }        it { log.should be_valid }        it { log.attributes[:response].should == attributes[:response].inspect }      end    end  endend,v
+  context "when create" do    let(:response) { {"status" => "500"} }    let(:request)  do      {        'fullpath' => '/account/partners/iba',        'body'     => { 'method' => 'getLinks',                        'params' => { 'document' => '25508724281',                                      'email'    => 'usuario-com-vinculos-rejeitados@teste.com.br',                                      'password' => '123456',                                      'confirm_password' => '123456'                                    }                      }      }    end    let(:request_body)  do      {        'fullpath' => '/account/partners/iba',        'body'     => { 'params' => 'document=25508724281&email=usuario@teste.com.br&senha=123456' }      }    end    let(:request_body_obfuscate) do      {        'fullpath' => '/account/partners/iba',        'body'     => { 'params' => Rack::Utils.parse_nested_query('document=25508724281&email=usuario@teste.com.br&senha=[FILTERED]') }      }    end    let(:request_obfuscate) do      request_obfuscate = request.clone      request_obfuscate['body']['params']['password'] = '[FILTERED]'      request_obfuscate['body']['params']['confirm_password'] = '[FILTERED]'      request_obfuscate    end    context "obfuscate sensitive data" do      context "when data is set as hash" do        subject { MongoLog::Store::WebTraffic.create(:request => request, :response => response).request }        before(:all) { MongoLog::Store::WebTraffic.delete_all }        it { eval(subject)['body'].should == request_obfuscate['body'] }      end      context "when data is set as query string" do        subject { MongoLog::Store::WebTraffic.create(:request => request_body, :response => response).request }        before(:all) { MongoLog::Store::WebTraffic.delete_all }        it { eval(subject)['body'].should == request_body_obfuscate['body'] }      end    end    context "inspect attributes" do      context "request" do        let(:attributes) { {:request => {"fake" => "request"}, :response => {}} }        let(:log)        { MongoLog::Store::WebTraffic.create(attributes) }        it { log.should be_valid }        it { log.attributes[:request].should == attributes[:request].inspect }      end      context 'response' do        let(:attributes) { {:request => {}, :response => {"fake" => "response"}} }        let(:log)        { MongoLog::Store::WebTraffic.create(attributes) }        it { log.should be_valid }        it { log.attributes[:response].should == attributes[:response].inspect }      end    end  endend,v
+  it { MongoLog::Store::WebTraffic.keys.should include("created_at", "updated_at") },V
+.,v
+ MongoLog::Store::WebTraffic,v
+  it { MongoLog::Store::WebTraffic.should include(MongoMapper::Document) },V
+Session,v
+  subject { Session.create(params) }  after(:all) do    Ohm.redis.flushdb  end  describe "#create" do    let(:params) { {} }    context "validates" do      let(:ess_user_id) { 1607 }      before do        Session.create(:ess_user_id => ess_user_id)      end      it "should validate presence of ess_user_id" do        subject.errors.should include([:ess_user_id, :not_present])      end      it "should validate uniqueness of ess_user_id" do        session = Session.create(:ess_user_id => ess_user_id)        session.errors.should include([:ess_user_id, :not_unique])      end    end    context "with valid arguments" do      let(:ess_user_id) { 1610 }      let(:params) { {:ess_user_id => ess_user_id} }      it "should not have any errors" do        subject.errors.should be_empty      end      it "should return Session object" do        subject.should be_an_instance_of(Session)      end      it "should generate a token" do        subject.token.should_not be_nil      end      it "should save a ess_user_id" do        subject.ess_user_id.should == ess_user_id      end      it "should set expiration five minutes" do        sleep(2)        Session.find(:ess_user_id => ess_user_id).first.should be_nil      end    end  end  describe "#token" do    let(:params) { {:ess_user_id => 1622} }    it "should return random hash" do      subject.token.should_not be_empty      session = Session.create(:ess_user_id => 1625)      session.token.should_not == subject.token    end    it "should return a SHA1 hash" do      subject.token.size.should == 40    end  end  describe "#find_or_create" do    before do      @session = Session.create(:ess_user_id => 939)    end    after do      Ohm.redis.flushdb    end    context "when a session exists" do      it "should retrive the session" do        session = Session.find_or_create(:ess_user_id => 939)        session.token.should == @session.token        session.id.should == @session.id      end    end    context "when a session doesn't exist" do      it "should create it" do        session = Session.find_or_create(:ess_user_id => 948)        session.id.should_not == @session.token      end    end  ende,V
+require 'spec_helper'describe Session do  subject { Session.create(params) }  after(:all) do    Ohm.redis.flushdb  end  describe "#create" do    let(:params) { {} }    context "validates" do      let(:ess_user_id) { 1607 }      before do        Session.create(:ess_user_id => ess_user_id)      end      it "should validate presence of ess_user_id" do        subject.errors.should include([:ess_user_id, :not_present])      end      it "should validate uniqueness of ess_user_id" do        session = Session.create(:ess_user_id => ess_user_id)        session.errors.should include([:ess_user_id, :not_unique])      end    end    context "with valid arguments" do      let(:ess_user_id) { 1610 }      let(:params) { {:ess_user_id => ess_user_id} }      it "should not have any errors" do        subject.errors.should be_empty      end      it "should return Session object" do        subject.should be_an_instance_of(Session)      end      it "should generate a token" do        subject.token.should_not be_nil      end      it "should save a ess_user_id" do        subject.ess_user_id.should == ess_user_id      end      it "should set expiration five minutes" do        sleep(2)        Session.find(:ess_user_id => ess_user_id).first.should be_nil      end    end  end  describe "#token" do    let(:params) { {:ess_user_id => 1622} }    it "should return random hash" do      subject.token.should_not be_empty      session = Session.create(:ess_user_id => 1625)      session.token.should_not == subject.token    end    it "should return a SHA1 hash" do      subject.token.size.should == 40    end  end  describe "#find_or_create" do    before do      @session = Session.create(:ess_user_id => 939)    end    after do      Ohm.redis.flushdb    end    context "when a session exists" do      it "should retrive the session" do        session = Session.find_or_create(:ess_user_id => 939)        session.token.should == @session.token        session.id.should == @session.id      end    end    context "when a session doesn't exist" do      it "should create it" do        session = Session.find_or_create(:ess_user_id => 948)        session.id.should_not == @session.token      end    end  ende,v
+describe Session do,V
+QUERY_STRING_REGEX,v
+    # value == "a=1&b=2&c=3",V
+(,v
+query_string,v
+  def is_query_string(value)    # value == "a=1&b=2&c=3"    result = (value =~ QUERY_STRING_REGEX)    result.present?  end,v
+/[\w]+=[^&]+/,v
+  QUERY_STRING_REGEX = /[\w]+=[^&]+/,V
+      QUERY_STRING_REGEX = /[\w]+=[^&]+/,V
+      def filter(hash)        hash.each do |field, value|          if value.is_a? String            begin              if (is_query_string(value))                value = Rack::Utils.parse_nested_query(value)                hash.merge!(field => filter(value))              else                value = JSON.parse(value)                hash.merge!(field => filter(value).to_json)              end            rescue              hash.merge!(field => '[FILTERED]') if SENSITIVE_DATA.include?(field.to_s)            end          else            filter(value) if value.is_a? Hash          end        end      end      def is_query_string(value)        # value == "a=1&b=2&c=3"        result = (value =~ QUERY_STRING_REGEX)        result.present?      end,v
+      debugger if SENSITIVE_DATA.include?(value),V
+),v
+File.open('log/test.log','w+',v
+"log/test.log" ,v
+stdout,v
+development,v
+RACK,v
+.to_json,v
+if params[param_filtered],V
+if params[param_filtered],v
+        debugger if ,V
+# You are about to increase the 'patch' version level.,V
+# with '#' will be ignored, and an empty message aborts the operation.,V
+# Please enter the log message for your tag. Lines starting,v
+# Please enter the note message for your changes. Lines starting# with '#' will be ignored, and an empty message aborts the operation.## We recommend that the note message has a short sentence, or try to# transform your message in a topic. Example:##   New field for Account model#     Last access date## The breakline and two-spaces indentation will be converted as follows:##     - New field for Account model#       - Last access date## Thus, the note becomes easier to read, instead of using big sentences.## If you still need to describe the change in one big sentence, you may# use one-space indentation to indicates the sentence continues in the# next line. Example:##   The Account model receives a new field named "last_access_date",#    and his value changes every sign-in made by user on website.## The one-space indentation will be converted as follows:##     - The Account model receives a new field named "last_access_date",#       and his value changes every sign-in made by user on website.## You can make several combinations of one-space or two-spaces indentation# if you need. We hope this helps you to improve your release notes.,V
+:Utils.parse_nested_query(value) ,v
+:,v
+Rack,v
+ : JSON.parse(value),v
+) ? Rack::Utils.parse_nested_query(value,v
+is_query_string(value,v
+              value = is_query_string(value) ? Rack::Utils.parse_nested_query(value) : JSON.parse(value)              hash.merge!(field => filter(value)),v
+o,v
+        ,V
+is_query_string(value) ? Rack::Utils.parse_nested_query(value) :,v
+              value = is_query_string(value) ? Rack::Utils.parse_nested_query(value) : JSON.parse(value).to_json,V

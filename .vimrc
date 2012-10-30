@@ -1,6 +1,5 @@
 " do not use vi compatibility mode. must come first because it changes other options.
 set nocompatible
-
 " show incomplete commands
 set showcmd
 
@@ -10,19 +9,33 @@ set list
 " use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬
 
+" set to use on shell the bashrc of login
+set shell=bash\ --login
+
+set path+=**
+
 " show line numbers
 set number
-
-" no wrap lines
-set nowrap
 
 " don't break wrapped lines on words
 set linebreak
 
+" set no word rap line
+set nowrap
+
+" highlight N columns
+set cc=120
+
+" show highlight columns on cursor
+"set cursorcolumn
+
 " enable syntax highlighting
 syntax on
 
-" auto detect the type of file that is being edited 
+call pathogen#infect()
+call pathogen#helptags()
+
+" auto detect the type of file that is being edited
 filetype on
 " enable file type detection
 filetype plugin on
@@ -39,7 +52,7 @@ set fileformats=unix,mac,dos
 set cursorline
 
 " highlight matches as you type
-set incsearch 
+set incsearch
 
 " highlight matches
 set hlsearch
@@ -55,17 +68,17 @@ set shiftwidth=2 " number of spaces used for (auto)indent
 set expandtab " use soft tabs (spaces)
 set softtabstop=2 " size of soft tabs
 set autoindent " auto indent lines
-set smartindent " smart (language based) auto indent 
+set smartindent " smart (language based) auto indent
 
 " keep 100 cmdline history
 set history=100
 
 " persistent undo
-" set undofile
-" set undodir=~/.vim/tmp
+set undofile
+set undodir=~/.vim/tmp
 
 " backup options
-"set backup " turn on backup
+set backup " turn on backup
 set backupdir=~/.vim/backup " dir to save backup files
 set directory=~/.vim/tmp " dir to keep all swap files
 
@@ -73,7 +86,23 @@ set directory=~/.vim/tmp " dir to keep all swap files
 set laststatus=2
 
 " Useful status information at bottom of screen
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{GitBranchInfoString()}\ %=%-16(\ %l,%c-%v\ %)%P
+"set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}\ %{exists('g:loaded_rvm')?rvm#statusline():''}\ %=%-16(\ %l,%c-%v\ %)%P
+"statusline setup
+set statusline=%f                                               " tail of the filename
+set statusline+=\ [%{strlen(&fenc)?&fenc:'none'},               " file encoding
+set statusline+=\ %{&ff}]                                       " file format
+set statusline+=\ %r                                            " Opened type (read-only)
+set statusline+=\ %m                                            " Modify?
+set statusline+=\ %y                                            " File type (vim, php, ruby)
+set statusline+=\ %{fugitive#statusline()}                      " Git
+set statusline+=\ %{exists('g:loaded_rvm')?rvm#statusline():''} " RVM
+set statusline+=%=                                              " left/right separator
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set statusline+=%c,                                             " cursor column
+set statusline+=%l/%L                                           " cursor line/total lines
+set statusline+=\ %P                                            " percent through file
 
 " enhanced command line completion
 set wildmenu
@@ -110,13 +139,16 @@ nmap <silent> <leader>/ :nohlsearch<CR>
 " keep window on buffer delete
 nmap <silent> <leader>bd <Plug>Kwbd
 
+" use tagbar
+nmap <silent> <leader>b :TagbarToggle<CR>
+
 " use sudo to write the file
 cmap w!! w !sudo tee % >/dev/null
 
 " run the above commands only if vim is compiled with autocmd
 if has("autocmd")
   autocmd BufWritePost .vimrc source $MYVIMRC " apply .vimrc settings on save
-  autocmd BufWritePre *.rb,*.html,*.js,*.py :call <SID>StripTrailingWhitespaces() " remove trailing white spaces before saving (only in specified filetypes)
+  autocmd BufWritePre * :call <SID>StripTrailingWhitespaces() " remove trailing white spaces before saving (only in specified filetypes)
 endif
 
 " function to remove trailing white space (while saving cursor position)
@@ -171,9 +203,49 @@ endfunction
 " mapping for function above
 map <leader>bw :call Wipeout()<CR>
 
-" JSON format install: sudo apt-get install json_xs
-map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>
+" NerdTree
+map <leader>nt :NERDTreeToggle<CR>
+
+" JSON Format
+map <leader>jt <Esc>:%!json_xs -f json -t json-pretty<CR>
+
+" XML Format
+map <leader>xt <Esc>:1,$!xmllint --format -<CR>
+
+" Tab next
+nnoremap <C-w>k :tabnew %<CR>
+nnoremap <C-w>l :tabprevious<CR>
+nnoremap <C-w>h :tabnext<CR>
+
+" Remove file
+"nnoremap <C-D> :!rm %<CR>
+
+" CommandT TextMate style finder
+nnoremap <leader>t :CommandT<CR>
+
+" switch to last used buffer
+nnoremap <leader>l :e#<CR>
+
+" YankRing mapping
+nnoremap <leader>y :YRShow<CR>
+nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>P :CtrlPBuffer<CR>
+
+" TagList of functions
+map <leader>T :TlistToggle<CR>
+
+let g:debuggerPort = 9001
+let g:syntastic_auto_jump=0
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_check_on_open=1
+let g:Powerline_symbols = 'fancy'
 
 " XML Format install: sudo apt-get install libxml2-utils
 map <leader>xt <Esc>:1,$!xmllint --format -<CR>
-map <F2> :NERDTreeToggle<CR>
+map <Esc>OH <Home>
+map! <Esc>OH <Home>
+map <Esc>OF <End>
+map! <Esc>OF <End>
+
+
