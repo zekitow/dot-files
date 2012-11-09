@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -d ~/.vim.old ]; then
+  rm -rf ~/.vim.old
+fi
+
 if [ -d ~/.vim ]; then
   mv ~/.vim ~/.vim.old
 fi
