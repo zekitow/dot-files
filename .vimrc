@@ -45,6 +45,7 @@ set undofile
 set undodir=~/.vim/tmp
 set wildmenu
 set wildmode=list:longest
+set t_Co=256
 
 " backup options
 set backup
@@ -60,9 +61,11 @@ nnoremap <silent> <S-LEFT> :bn<CR>
 nnoremap <silent> <S-RIGHT> :bp<CR>
 nnoremap <silent> <S-DOWN> :bd<CR>
 nmap <silent> <leader>bd <Plug>Kwbd
+map <leader>nt :NERDTreeToggle<CR>
 
 " views
 autocmd BufRead,BufNewFile */application/views/* set filetype=html
 
 " colors
 colorscheme molokai
+hi Normal guibg=NONE ctermbg=NONE
