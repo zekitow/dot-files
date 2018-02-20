@@ -7,7 +7,9 @@ Plug 'bling/vim-airline'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'flazz/vim-colorschemes'
- 
+Plug 'mileszs/ack.vim'
+Plug 'ervandew/supertab'
+
 call plug#end()
 
 let g:airline#extensions#tabline#enabled = 1
@@ -56,7 +58,7 @@ set hidden
 " mappings
 nnoremap ; :
 nmap <F4> :TagbarToggle<CR>
-nnoremap <silent> <S-UP> :BufExplorer<CR>
+nnoremap <silent> <S-UP> :bn<CR>
 nnoremap <silent> <S-LEFT> :bn<CR>
 nnoremap <silent> <S-RIGHT> :bp<CR>
 nnoremap <silent> <S-DOWN> :bd<CR>
