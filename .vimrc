@@ -10,11 +10,13 @@ Plug 'flazz/vim-colorschemes'
 Plug 'mileszs/ack.vim'
 Plug 'ervandew/supertab'
 Plug 'mattn/emmet-vim'
+Plug 'chrisbra/colorizer'
 
 call plug#end()
 
 let g:airline#extensions#tabline#enabled = 1
 let mapleader=","
+let g:colorizer_auto_color = 1
 
 filetype on
 filetype plugin on
@@ -67,6 +69,7 @@ nmap <silent> <leader>bd <Plug>Kwbd
 map <leader>nt :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
 map <leader>l :noh<CR>
+map <leader>f :Ack 
 
 " views
 autocmd BufRead,BufNewFile */application/views/* set filetype=html
