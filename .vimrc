@@ -9,6 +9,7 @@ Plug 'majutsushi/tagbar'
 Plug 'flazz/vim-colorschemes'
 Plug 'mileszs/ack.vim'
 Plug 'ervandew/supertab'
+Plug 'mattn/emmet-vim'
 
 call plug#end()
 
@@ -64,6 +65,8 @@ nnoremap <silent> <S-RIGHT> :bp<CR>
 nnoremap <silent> <S-DOWN> :bd<CR>
 nmap <silent> <leader>bd <Plug>Kwbd
 map <leader>nt :NERDTreeToggle<CR>
+map <leader>nf :NERDTreeFind<CR>
+map <leader>l :noh<CR>
 
 " views
 autocmd BufRead,BufNewFile */application/views/* set filetype=html
