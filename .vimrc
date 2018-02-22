@@ -5,7 +5,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'kien/ctrlp.vim'
 Plug 'bling/vim-airline'
 Plug 'godlygeek/tabular'
-Plug 'majutsushi/tagbar'
 Plug 'flazz/vim-colorschemes'
 Plug 'mileszs/ack.vim'
 Plug 'ervandew/supertab'
@@ -56,6 +55,7 @@ set t_Co=256
 set backup
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
+set tags=./tags,tags;$HOME
 set hidden
 
 " mappings
@@ -66,10 +66,10 @@ nnoremap <silent> <S-LEFT> :bn<CR>
 nnoremap <silent> <S-RIGHT> :bp<CR>
 nnoremap <silent> <S-DOWN> :bd<CR>
 nmap <silent> <leader>bd <Plug>Kwbd
-map <leader>nt :NERDTreeToggle<CR>
-map <leader>nf :NERDTreeFind<CR>
-map <leader>l :noh<CR>
-map <leader>f :Ack 
+map <silent> <leader>nt :NERDTreeToggle<CR>
+map <silent> <leader>nf :NERDTreeFind<CR>
+map <silent> <leader>l :noh<CR>
+map <silent> <leader>f :Ack 
 
 " views
 autocmd BufRead,BufNewFile */application/views/* set filetype=html
