@@ -3,19 +3,57 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'kien/ctrlp.vim'
-Plug 'bling/vim-airline'
 Plug 'godlygeek/tabular'
 Plug 'flazz/vim-colorschemes'
 Plug 'mileszs/ack.vim'
 Plug 'ervandew/supertab'
 Plug 'mattn/emmet-vim'
 Plug 'chrisbra/colorizer'
+Plug 'majutsushi/tagbar'
+Plug 'vim-airline/vim-airline'
+
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'airblade/vim-gitgutter'
+Plug 'Yggdroot/indentLine'
+Plug 'scrooloose/syntastic'
+Plug 'Raimondi/delimitMate'
+
+" html
+"" HTML Bundle
+Plug 'hail2u/vim-css3-syntax'
+Plug 'gorodinskiy/vim-coloresque'
+" javascript
+"" Javascript Bundle
+Plug 'jelera/vim-javascript-syntax'
+" php
+"" PHP Bundle
+Plug 'arnaud-lb/vim-php-namespace'
+" ruby
+Plug 'thoughtbot/vim-rspec'
 
 call plug#end()
 
 let g:airline#extensions#tabline#enabled = 1
 let mapleader=","
 let g:colorizer_auto_color = 1
+
+" syntastic
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_auto_loc_list=1
+let g:syntastic_aggregate_errors = 1
+
+" tagbar
+let g:tagbar_autofocus = 1
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
 filetype on
 filetype plugin on
@@ -61,7 +99,7 @@ set hidden
 " mappings
 nnoremap ; :
 nmap <F4> :TagbarToggle<CR>
-nnoremap <silent> <S-UP> :bn<CR>
+nnoremap <silent> <S-UP> :tabnew<CR>
 nnoremap <silent> <S-LEFT> :bn<CR>
 nnoremap <silent> <S-RIGHT> :bp<CR>
 nnoremap <silent> <S-DOWN> :bd<CR>
@@ -69,7 +107,8 @@ nmap <silent> <leader>bd <Plug>Kwbd
 map <silent> <leader>nt :NERDTreeToggle<CR>
 map <silent> <leader>nf :NERDTreeFind<CR>
 map <silent> <leader>l :noh<CR>
-map <silent> <leader>f :Ack 
+map <silent> <leader>f :Ack
+map <silent> <leader>w :%s/\s\+$//e<CR>
 
 " views
 autocmd BufRead,BufNewFile */application/views/* set filetype=html
@@ -77,3 +116,4 @@ autocmd BufRead,BufNewFile */application/views/* set filetype=html
 " colors
 colorscheme molokai
 hi Normal guibg=NONE ctermbg=NONE
+" autocmd BufWritePre *.* :%s/\s\+$//e
