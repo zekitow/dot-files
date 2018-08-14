@@ -5,12 +5,14 @@ Plug 'tpope/vim-fugitive'
 Plug 'kien/ctrlp.vim'
 Plug 'godlygeek/tabular'
 Plug 'flazz/vim-colorschemes'
+Plug 'skielbasa/vim-material-monokai'
 Plug 'mileszs/ack.vim'
 Plug 'ervandew/supertab'
 Plug 'mattn/emmet-vim'
 Plug 'chrisbra/colorizer'
 Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
+Plug 'gregsexton/MatchTag'
 
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
@@ -28,8 +30,6 @@ Plug 'jelera/vim-javascript-syntax'
 " php
 "" PHP Bundle
 Plug 'arnaud-lb/vim-php-namespace'
-" ruby
-Plug 'thoughtbot/vim-rspec'
 
 call plug#end()
 
@@ -87,7 +87,7 @@ set undofile
 set undodir=~/.vim/tmp
 set wildmenu
 set wildmode=list:longest
-set t_Co=256
+" set t_Co=256
 
 " backup options
 set backup
@@ -100,20 +100,36 @@ set hidden
 nnoremap ; :
 nmap <F4> :TagbarToggle<CR>
 nnoremap <silent> <S-UP> :tabnew<CR>
-nnoremap <silent> <S-LEFT> :bn<CR>
-nnoremap <silent> <S-RIGHT> :bp<CR>
+nnoremap <silent> <S-LEFT> :bp<CR>
+nnoremap <silent> <S-RIGHT> :bn<CR>
 nnoremap <silent> <S-DOWN> :bd<CR>
 nmap <silent> <leader>bd <Plug>Kwbd
 map <silent> <leader>nt :NERDTreeToggle<CR>
 map <silent> <leader>nf :NERDTreeFind<CR>
-map <silent> <leader>l :noh<CR>
-map <silent> <leader>f :Ack
+map <leader>l :noh<CR>
+map <leader>f :Ack!<Space>
+vnoremap <Leader>g y:Ack! <C-r>=fnameescape(@")<CR><CR>
 map <silent> <leader>w :%s/\s\+$//e<CR>
+map <leader>fr :%s///gc
 
 " views
-autocmd BufRead,BufNewFile */application/views/* set filetype=html
+" autocmd BufRead,BufNewFile */application/views/* set filetype=html
 
 " colors
-colorscheme molokai
-hi Normal guibg=NONE ctermbg=NONE
-" autocmd BufWritePre *.* :%s/\s\+$//e
+set t_Co=256
+set background=dark
+set termguicolors
+colorscheme material-monokai
+let g:materialmonokai_italic=1
+let g:materialmonokai_subtle_spell=1
+let g:airline_theme='materialmonokai'
+let g:materialmonokai_subtle_airline=1
+"set term=screen-256color
+set t_ut=
+
+" .zshrc
+" ===> if [[ $TERM == xterm ]]; then TERM=xterm-256color; fi
+
+" tmux.conf
+" ===> set -g default-terminal xterm
+
