@@ -13,6 +13,7 @@ Plug 'chrisbra/colorizer'
 Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'gregsexton/MatchTag'
+Plug 'tpope/vim-commentary'
 
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
@@ -49,20 +50,14 @@ let g:syntastic_aggregate_errors = 1
 " tagbar
 let g:tagbar_autofocus = 1
 
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-
 filetype on
 filetype plugin on
 filetype indent on
 
 " sets
 set clipboard=unnamedplus
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set shiftround
 set expandtab
 set list
@@ -96,6 +91,14 @@ set directory=~/.vim/tmp
 set tags=./tags,tags;$HOME
 set hidden
 
+" auto indent and other
+set smartindent
+set backspace=indent,eol,start
+set autoindent
+set ignorecase
+set smartcase
+autocmd FileType ruby set shiftwidth=2
+
 " mappings
 nnoremap ; :
 nmap <F4> :TagbarToggle<CR>
@@ -126,10 +129,3 @@ let g:airline_theme='materialmonokai'
 let g:materialmonokai_subtle_airline=1
 "set term=screen-256color
 set t_ut=
-
-" .zshrc
-" ===> if [[ $TERM == xterm ]]; then TERM=xterm-256color; fi
-
-" tmux.conf
-" ===> set -g default-terminal xterm
-
