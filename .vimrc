@@ -4,8 +4,6 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'kien/ctrlp.vim'
 Plug 'godlygeek/tabular'
-Plug 'flazz/vim-colorschemes'
-Plug 'skielbasa/vim-material-monokai'
 Plug 'mileszs/ack.vim'
 Plug 'ervandew/supertab'
 Plug 'mattn/emmet-vim'
@@ -13,24 +11,21 @@ Plug 'chrisbra/colorizer'
 Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 Plug 'gregsexton/MatchTag'
-Plug 'tpope/vim-commentary'
-
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
-Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-rails'
+Plug 'kaicataldo/material.vim'
 
 " html
 "" HTML Bundle
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
+
 " javascript
 "" Javascript Bundle
 Plug 'jelera/vim-javascript-syntax'
-" php
-"" PHP Bundle
-Plug 'arnaud-lb/vim-php-namespace'
 
 call plug#end()
 
@@ -55,7 +50,7 @@ filetype plugin on
 filetype indent on
 
 " sets
-set clipboard=unnamedplus
+set clipboard=unnamed
 set tabstop=4
 set shiftwidth=4
 set shiftround
@@ -65,16 +60,14 @@ set list listchars=tab:»·,trail:·,nbsp:·,space:·
 set nojoinspaces
 set number
 set numberwidth=5
-set cursorline!
 set splitbelow
 set splitright
 set noshowmode
 set linebreak
 set nowrap
-set cc=120
+set cc=90
 set backspace=indent,eol,start
 set fileformats=unix,mac,dos
-set cursorline
 set incsearch
 set hlsearch
 set history=100
@@ -82,7 +75,10 @@ set undofile
 set undodir=~/.vim/tmp
 set wildmenu
 set wildmode=list:longest
-" set t_Co=256
+set lazyredraw
+set synmaxcol=90
+syntax sync minlines=256
+" set cursorline!
 
 " backup options
 set backup
@@ -98,6 +94,7 @@ set autoindent
 set ignorecase
 set smartcase
 autocmd FileType ruby set shiftwidth=2
+autocmd BufWritePre * %s/\s\+$//e
 
 " mappings
 nnoremap ; :
@@ -113,19 +110,74 @@ map <leader>l :noh<CR>
 map <leader>f :Ack!<Space>
 vnoremap <Leader>g y:Ack! <C-r>=fnameescape(@")<CR><CR>
 map <silent> <leader>w :%s/\s\+$//e<CR>
-map <leader>fr :%s///gc
+vmap Y :w !pbcopy<CR><CR>
 
-" views
-" autocmd BufRead,BufNewFile */application/views/* set filetype=html
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeNodeDelimiter = "\u00a0"
+let NERDTreeDirArrows = 1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeIgnore=['\~$', 'bin', 'tmp', 'node_modules', 'docs', 'coverage', 'log']
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+let g:nerdtree_tabs_focus_on_files=1
+let g:javascript_enable_domhtmlcss = 1
 
-" colors
+" syntastic
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_auto_loc_list=1
+let g:syntastic_aggregate_errors = 1
+let g:ctrlp_custom_ignore = '\v[\/](bin|node_modules|target|dist|coverage|log|public)|(\.(swp|ico|git|svn))$'
+let g:syntastic_ruby_checkers = ['mri']
+
+" ruby
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails = 1
+
+augroup vimrc-ruby
+  autocmd!
+  autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
+  autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2
+augroup END
+
+" vim-javascript
+augroup vimrc-javascript
+  autocmd!
+  autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4
+augroup END
+
 set t_Co=256
 set background=dark
-set termguicolors
-colorscheme material-monokai
-let g:materialmonokai_italic=1
-let g:materialmonokai_subtle_spell=1
-let g:airline_theme='materialmonokai'
-let g:materialmonokai_subtle_airline=1
-"set term=screen-256color
+colorscheme material
 set t_ut=
+set autochdir
+set tags+=./tags;
+
+" Enable true colors
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+set mouse=a
+set nocursorline        " Don't paint cursor line
+set nocursorcolumn      " Don't paint cursor column
+set lazyredraw          " Wait to redraw
+set nocompatible
+set ttyfast
+set lazyredraw
+let html_no_rendering=1 " Don't render italic, bold, links in HTML
+
+if has("mac")
+  set nocursorline
+
+  if exists("+relativenumber")
+    set norelativenumber
+  endif
+
+  set foldlevel=0
+  set foldmethod=manual
+endif
