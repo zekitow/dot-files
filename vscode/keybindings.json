@@ -1,0 +1,83 @@
+// change all "ctrl" by "cmd" on OSX
+[
+  {
+  "key": "ctrl+alt+m",
+  "command": "workbench.action.editor.changeLanguageMode"
+  },
+  {
+  "key": "ctrl+k m",
+  "command": "-workbench.action.editor.changeLanguageMode"
+  },
+  {
+  "key": "ctrl+k ctrl+l",
+  "command": "editor.action.transformToLowercase"
+  },
+  {
+  "key": "ctrl+k ctrl+u",
+  "command": "editor.action.transformToUppercase"
+  },
+  {
+  "key": "ctrl+enter",
+  "command": "mysql.runQuery",
+  "when": "editorLangId == 'sql'"
+  },
+  {
+  "key": "ctrl+alt+right",
+  "command": "workbench.action.terminal.focusNext"
+  },
+  {
+  "key": "ctrl+alt+left",
+  "command": "workbench.action.terminal.focusPrevious"
+  },
+  {
+  "key": "f10",
+  "command": "workbench.action.terminal.toggleTerminal"
+  },
+  {
+  "key": "ctrl+k ctrl+b",
+  "command": "workbench.action.toggleSidebarVisibility"
+  },
+  {
+  "key": "shift+alt+down",
+  "command": "workbench.action.terminal.resizePaneDown",
+  "when": "terminalFocus"
+  },
+  {
+  "key": "shift+alt+left",
+  "command": "workbench.action.terminal.resizePaneLeft",
+  "when": "terminalFocus"
+  },
+  {
+  "key": "shift+alt+right",
+  "command": "workbench.action.terminal.resizePaneRight",
+  "when": "terminalFocus"
+  },
+  {
+  "key": "shift+alt+up",
+  "command": "workbench.action.terminal.resizePaneUp",
+  "when": "terminalFocus"
+  },
+  {
+  "key": "alt+shift+down",
+  "command": "workbench.action.terminal.scrollDown",
+  "when": "terminalFocus"
+  },
+  {
+  "key": "alt+x",
+  "command": "workbench.action.terminal.focus"
+  },
+  {
+  "key": "alt+x",
+  "command": "workbench.action.focusActiveEditorGroup",
+  "when": "terminalFocus"
+  },
+  {
+  "key": "alt+a",
+  "command": "workbench.action.toggleMaximizedPanel"
+  },
+  {
+  "key": "alt+a",
+  "command": "workbench.action.toggleMaximizedPanel",
+  "when": "terminalFocus"
+  }
+  ]

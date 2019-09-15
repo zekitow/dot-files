@@ -1,0 +1,17 @@
+code --install-extension adityavm.vscode-monokai-seti
+code --install-extension brenosolutions.sqlformatter
+code --install-extension brian-anders.sublime-duplicate-text
+code --install-extension Equinusocio.vsc-material-theme
+code --install-extension faustinoaq.crystal-lang
+code --install-extension felixfbecker.php-intellisense
+code --install-extension formulahendry.auto-close-tag
+code --install-extension HvyIndustries.crane
+code --install-extension ms-vscode.sublime-keybindings
+code --install-extension PKief.material-icon-theme
+code --install-extension rebornix.ruby
+code --install-extension small.php-ci
+code --install-extension Tyriar.terminal-tabs
+code --install-extension vincaslt.highlight-matching-tag
+code --install-extension waderyan.gitblame
+code --install-extension whizkydee.material-palenight-theme
+code --install-extension wwm.better-align

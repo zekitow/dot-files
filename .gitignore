@@ -1,3 +1,4 @@
-backup/*
-tmp/*.swp
-tmp/*
+vim/backup/*
+vim/tmp/*.swp
+vim/tmp/*
+.DS_Store
