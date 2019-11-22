@@ -1,6 +1,5 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'kien/ctrlp.vim'
 Plug 'godlygeek/tabular'
@@ -9,14 +8,13 @@ Plug 'ervandew/supertab'
 Plug 'mattn/emmet-vim'
 Plug 'chrisbra/colorizer'
 Plug 'majutsushi/tagbar'
-Plug 'vim-airline/vim-airline'
 Plug 'gregsexton/MatchTag'
-Plug 'jistr/vim-nerdtree-tabs'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-rails'
 Plug 'kaicataldo/material.vim'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'vim-airline/vim-airline'
 
 " html
 "" HTML Bundle
@@ -30,6 +28,8 @@ Plug 'jelera/vim-javascript-syntax'
 call plug#end()
 
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'default'
+
 let mapleader=","
 let g:colorizer_auto_color = 1
 
@@ -50,6 +50,7 @@ filetype plugin on
 filetype indent on
 
 " sets
+set laststatus=2
 set clipboard=unnamed
 set tabstop=4
 set shiftwidth=4
@@ -70,15 +71,15 @@ set backspace=indent,eol,start
 set fileformats=unix,mac,dos
 set incsearch
 set hlsearch
-set history=100
 set undofile
 set undodir=~/.vim/tmp
 set wildmenu
 set wildmode=list:longest
-set lazyredraw
-set synmaxcol=90
-syntax sync minlines=256
-" set cursorline!
+" set lazyredraw
+" set synmaxcol=90
+" syntax sync minlines=256
+" set history=10000
+" set cursorline! => performance issue
 
 " backup options
 set backup
@@ -98,26 +99,27 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " mappings
 nnoremap ; :
+
+" toggle tagbar (F4)
 nmap <F4> :TagbarToggle<CR>
+
+" add new buffer (shift+up)
 nnoremap <silent> <S-UP> :tabnew<CR>
+" go to left buffer (shift+left)
 nnoremap <silent> <S-LEFT> :bp<CR>
+" go to right buffer (shift+right)
 nnoremap <silent> <S-RIGHT> :bn<CR>
+" delete a buffer (shift+down)
 nnoremap <silent> <S-DOWN> :bd<CR>
 nmap <silent> <leader>bd <Plug>Kwbd
-map <silent> <leader>nt :NERDTreeToggle<CR>
-map <silent> <leader>nf :NERDTreeFind<CR>
 map <leader>l :noh<CR>
 map <leader>f :Ack!<Space>
-vnoremap <Leader>g y:Ack! <C-r>=fnameescape(@")<CR><CR>
-map <silent> <leader>w :%s/\s\+$//e<CR>
+vnoremap <leader>g y:Ack! <C-r>=fnameescape(@")<CR><CR>
 vmap Y :w !pbcopy<CR><CR>
 
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeNodeDelimiter = "\u00a0"
-let NERDTreeDirArrows = 1
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeIgnore=['\~$', 'bin', 'tmp', 'node_modules', 'docs', 'coverage', 'log']
+" select all to replace when ', s' is pressed
+nnoremap <leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 let g:nerdtree_tabs_focus_on_files=1
 let g:javascript_enable_domhtmlcss = 1
@@ -136,7 +138,6 @@ let g:syntastic_ruby_checkers = ['mri']
 " ruby
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
 
 augroup vimrc-ruby
   autocmd!
@@ -152,7 +153,7 @@ augroup END
 
 set t_Co=256
 set background=dark
-colorscheme material
+colorscheme onehalfdark
 set t_ut=
 set autochdir
 set tags+=./tags;
@@ -181,3 +182,34 @@ if has("mac")
   set foldlevel=0
   set foldmethod=manual
 endif
+set termguicolors
+set tags=tags
+
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+let g:NetrwIsOpen=0
+
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Lexplore
+    endif
+endfunction
+
+" Add your own mapping. For example:
+noremap <silent> <C-E> :call ToggleNetrw()<CR>
+
+hi SpecialKey guifg=#555555 guibg=#282c34
